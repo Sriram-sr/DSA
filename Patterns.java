@@ -1,13 +1,49 @@
 class Solution {
     /*
-     * """
+     *
+     * Write a program to print the below pattern
+     * 1
+     * 22
+     * 333
+     * 4444
+     * 55555
+     */
+    public void pattern6(int n) {
+        for (int row = 1; row <= n; row++) {
+            for (int col = 1; col <= row; col++) {
+                System.out.print(row);
+            }
+            System.out.println();
+        }
+    }
+
+    /*
+     *
+     * Write a program to print the below pattern
+     * 1
+     * 12
+     * 123
+     * 1234
+     * 12345
+     */
+    public void pattern5(int n) {
+        for (int row = 1; row <= n; row++) {
+            for (int col = 1; col <= row; col++) {
+                System.out.print(col);
+            }
+            System.out.println();
+        }
+    }
+
+    /*
+     *
      * Write a program to print the below pattern
      *****
      ****
      ***
      **
      *
-     * """
+     *
      */
     public void pattern4(int n) {
         for (int row = 1; row <= n; row++) {
@@ -19,14 +55,14 @@ class Solution {
     }
 
     /*
-     * """
+     *
      * Write a program to print the below pattern
      *
      ***
      *****
      *******
      *********
-     * """
+     *
      */
     public void pattern3(int n) {
         for (int row = 1; row <= n; row++) {
@@ -38,40 +74,50 @@ class Solution {
     }
 
     /*
-     * """
+     *
      * Write a program to print the below pattern
      *
      **
      ***
      ****
      ***** 
-     * """
+     *
      */
     public void pattern2(int n) {
+        // for (int row = 1; row <= n; row++) {
+        // for (int col = 1; col <= row; col++) {
+        // System.out.print("*");
+        // }
+        // System.out.println();
+        // }
+
+        // Approach 2
         for (int row = 1; row <= n; row++) {
-            for (int col = 1; col <= row; col++) {
-                System.out.print("*");
-            }
-            System.out.println();
+            System.out.println("*".repeat(row));
         }
     }
 
     /*
-     * """
+     *
      * Write a program to print the below pattern
      *****
      *****
      *****
      *****
      *****
-     * """
+     *
      */
     public void pattern1(int n) {
+        // for (int row = 1; row <= n; row++) {
+        // for (int col = 1; col <= n; col++) {
+        // System.out.print("*");
+        // }
+        // System.out.println();
+        // }
+
+        // Approach 2
         for (int row = 1; row <= n; row++) {
-            for (int col = 1; col <= n; col++) {
-                System.out.print("*");
-            }
-            System.out.println();
+            System.out.println("*".repeat(n));
         }
     }
 }
@@ -80,6 +126,6 @@ public class Patterns {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        solution.pattern4(5);
+        solution.pattern6(5);
     }
 }
