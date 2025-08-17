@@ -1,5 +1,26 @@
 class Solution {
     /*
+    *
+    * Write a program to print the below pattern
+          *  
+         * *  
+        * * *  
+       * * * *  
+      * * * * *
+    */
+    public void pattern7(int n) {
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= n - i; j++) {
+                System.out.print(" ");
+            }
+            for (int k = 1; k <= i; k++) {
+                System.out.print("* ");
+            }
+            System.out.println();
+        }
+    }
+
+    /*
      *
      * Write a program to print the below pattern
      * 1
@@ -126,6 +147,6 @@ public class Patterns {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        solution.pattern6(5);
+        solution.pattern7(5);
     }
 }
