@@ -2,6 +2,71 @@ class Solution {
     /*
      *
      * Write a program to print the below pattern
+        *
+        **
+        ***
+        ****
+        *****
+        ****
+        ***
+        **
+        *
+    *
+    */
+    public void pattern12(int n) {
+        for (int row = 1; row <= n; row++) {
+            for (int col = 1; col <= row; col++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+        for (int row = 1; row < n; row++) {
+            for (int col = 1; col <= n - row; col++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+    }
+
+    /*
+     *
+     * Write a program to print the below pattern
+        * 
+       ***
+      *****
+     *******
+    *********
+    *********
+     *******
+      *****
+       ***
+        *
+    *
+    */
+    public void pattern11(int n) {
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= n - i; j++) {
+                System.out.print(" ");
+            }
+            for (int k = 1; k <= 2 * i - 1; k++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+        for (int l = 1; l <= n; l++) {
+            for (int m = 1; m <= l - 1; m++) {
+                System.out.print(" ");
+            }
+            for (int o = 1; o <= (2 * n) - 1 - 2 * (l - 1); o++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+    }
+
+    /*
+     *
+     * Write a program to print the below pattern
        *********
         *******
          *****
@@ -168,12 +233,12 @@ class Solution {
      *
      */
     public void pattern2(int n) {
-        // for (int row = 1; row <= n; row++) {
-        // for (int col = 1; col <= row; col++) {
-        // System.out.print("*");
-        // }
-        // System.out.println();
-        // }
+        for (int row = 1; row <= n; row++) {
+            for (int col = 1; col <= row; col++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
 
         // Approach 2
         for (int row = 1; row <= n; row++) {
@@ -210,6 +275,6 @@ public class Patterns {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        solution.pattern2(5);
+        solution.pattern12(5);
     }
 }
