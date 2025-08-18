@@ -1,5 +1,68 @@
 class Solution {
     /*
+     *
+     * Write a program to print the below pattern
+       *********
+        *******
+         *****
+          ***
+           *
+     *
+     */
+    public void pattern10(int n) {
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j < i; j++) {
+                System.out.print(" ");
+            }
+            for (int k = 1; k <= (2 * n) - 1 - 2 * (i - 1); k++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+    }
+
+    /*
+     *
+     * Write a program to print the below pattern
+         *
+        ***
+       *****
+      *******
+     *********
+     *
+     */
+    public void pattern9(int n) {
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= n - i; j++) {
+                System.out.print(" ");
+            }
+            for (int k = 1; k <= i * 2 - 1; k++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+    }
+
+    /*
+     *
+     * Write a program to print the below pattern
+     12345
+     1234
+     123
+     12
+     1
+     *
+     */
+    public void pattern8(int n) {
+        for (int row = 1; row <= n; row++) {
+            for (int col = 1; col <= n - row + 1; col++) {
+                System.out.print(col);
+            }
+            System.out.println();
+        }
+    }
+
+    /*
     *
     * Write a program to print the below pattern
           *  
@@ -147,6 +210,6 @@ public class Patterns {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        solution.pattern7(5);
+        solution.pattern2(5);
     }
 }
