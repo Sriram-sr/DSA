@@ -2,6 +2,31 @@ class Solution {
     /*
      *
      * Write a program to print the below pattern
+        1 
+        0 1
+        1 0 1
+        0 1 0 1
+        1 0 1 0 1
+    *
+    */
+    public void pattern13(int n) {
+        int start;
+        for (int row = 1; row <= n; row++) {
+            if (row % 2 == 0)
+                start = 0;
+             else
+                start = 1;
+            for (int col = 1; col <= row; col++) {
+                System.out.print(start + " ");
+                start = 1 - start;
+            }
+            System.out.println();
+        }
+    }
+
+    /*
+     *
+     * Write a program to print the below pattern
         *
         **
         ***
@@ -275,6 +300,6 @@ public class Patterns {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        solution.pattern12(5);
+        solution.pattern13(5);
     }
 }
