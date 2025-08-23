@@ -2,6 +2,57 @@ class Solution {
     /*
      *
      * Write a program to print the below pattern
+        A
+        AB
+        ABC
+        ABCD
+        ABCDE
+    *
+    */
+    public void pattern16(int n) {
+        char alphabet;
+        for (int row = 1; row <= n; row++) {
+            alphabet = 'A';
+            for (int col = 1; col <= row; col++) {
+                System.out.print(alphabet);
+                alphabet += 1;
+            }
+            System.out.println();
+        }
+
+        // Approach 2
+        for (int row = 0; row < n; row++) {
+            for (char col = 'A'; col <= 'A' + row; col++) {
+                System.out.print(col);
+            }
+            System.out.println();
+        }
+    }
+
+    /*
+     *
+     * Write a program to print the below pattern
+        1 
+        23
+        456
+        78910
+        1112131415
+    *
+    */
+    public void pattern15(int n) {
+        int count = 1;
+        for (int row = 1; row <= n; row++) {
+            for (int col = 1; col <= row; col++) {
+                System.out.print(count + " ");
+                count += 1;
+            }
+            System.out.println();
+        }
+    }
+
+    /*
+     *
+     * Write a program to print the below pattern
         1        1
         12      21
         123    321
@@ -10,7 +61,7 @@ class Solution {
     *
     */
     public void pattern14(int n) {
-        for (int i = 1; i <=n; i++) {
+        for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= i; j++) {
                 System.out.print(j);
             }
@@ -325,6 +376,6 @@ public class Patterns {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        solution.pattern14(4);
+        solution.pattern16(5);
     }
 }
