@@ -2,6 +2,25 @@ class Solution {
     /*
      *
      * Write a program to print the below pattern
+        ABCDE
+        ABCD
+        ABC
+        AB
+        A
+    *
+    */
+    public void pattern17(int n) {
+        for (int row = 0; row < n; row++) {
+            for (char col = 'A'; col < 'A' + n - row; col++) {
+                System.out.print(col);
+            }
+            System.out.println();
+        }
+    }
+
+    /*
+     *
+     * Write a program to print the below pattern
         A
         AB
         ABC
@@ -376,6 +395,6 @@ public class Patterns {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        solution.pattern16(5);
+        solution.pattern17(5);
     }
 }
