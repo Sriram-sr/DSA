@@ -2,6 +2,51 @@ class Solution {
     /*
      *
      * Write a program to print the below pattern
+        A
+       ABA
+      ABCBA
+     ABCDCBA
+    ABCDEDCBA
+    *
+    */
+    public void pattern19(int n) {
+        for (int i = 0; i < n; i++) {
+            for (int x = 0; x < n - i - 1; x++) {
+                System.out.print(" ");
+            }
+            for (int j = 0; j < i; j++) {
+                System.out.print((char)('A' + j));
+            }
+            System.out.print((char) ('A' + i));
+            for (int k = i; k > 0; k--) {
+                System.out.print((char) ('A' + k - 1));
+            }
+            System.out.println();
+        }
+    }
+
+    /*
+     *
+     * Write a program to print the below pattern
+        A
+        BB
+        CCC
+        DDDD
+        EEEEE
+    *
+    */
+    public void pattern18(int n) {
+        for (int row = 1; row <= n; row++) {
+            for (int col = 1; col <= row; col++) {
+                System.out.print((char)('A' + row -1));
+            }
+            System.out.println();
+        }
+    }
+
+    /*
+     *
+     * Write a program to print the below pattern
         ABCDE
         ABCD
         ABC
@@ -395,6 +440,6 @@ public class Patterns {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        solution.pattern17(5);
+        solution.pattern19(5);
     }
 }
