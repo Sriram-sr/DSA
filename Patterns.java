@@ -1,4 +1,8 @@
 class Solution {
+    public void pattern20(int n) {
+    
+    }
+
     /*
      *
      * Write a program to print the below pattern
@@ -10,6 +14,7 @@ class Solution {
     *
     */
     public void pattern19(int n) {
+        /*
         for (int i = 0; i < n; i++) {
             for (int x = 0; x < n - i - 1; x++) {
                 System.out.print(" ");
@@ -20,6 +25,24 @@ class Solution {
             System.out.print((char) ('A' + i));
             for (int k = i; k > 0; k--) {
                 System.out.print((char) ('A' + k - 1));
+            }
+            System.out.println();
+        }
+        */
+
+        // Approach 2
+
+        for(int i = 1; i <= n; i++) {
+            for (int j = 1; j <= n - i; j++) {
+                System.out.print(" ");
+            }
+            char element = 'A';
+            for (int k = 1; k <= 2 * i - 1; k++) {
+                System.out.print(element);
+                if (k < i)
+                    element++;
+                else
+                    element--;
             }
             System.out.println();
         }
