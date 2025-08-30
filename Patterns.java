@@ -1,6 +1,24 @@
 class Solution {
+    /*
+     *
+     * Write a program to print the below pattern
+    E 
+    D E
+    C D E 
+    B C D E 
+    A B C D E
+    *
+    */
+
     public void pattern20(int n) {
-    
+        for (int row = 1; row <= n; row++) {
+            char element = (char) ('A' + n - row);
+            for (int col = 1; col <= row; col++) {
+                System.out.print(element + " ");
+                element++;
+            }
+            System.out.println();
+        }
     }
 
     /*
@@ -463,6 +481,6 @@ public class Patterns {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        solution.pattern19(5);
+        solution.pattern20(5);
     }
 }
