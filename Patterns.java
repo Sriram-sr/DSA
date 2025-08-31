@@ -2,6 +2,49 @@ class Solution {
     /*
      *
      * Write a program to print the below pattern
+    **********
+    ****  ****
+    ***    ***
+    **      **
+    *        *
+    *        *
+    **      **
+    ***    ***
+    ****  ****
+    **********
+    *
+    */
+
+    public void pattern21(int n) {
+        for (int i = 0; i < n; i ++) {
+            for (int j = 0; j < n - i; j++) {
+                System.out.print("*");
+            }
+            for (int k = 0; k < 2 * i; k++) {
+                System.out.print(" ");
+            }
+            for (int l = 0; l < n - i; l++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+        for (int a = 1; a <= n; a++) {
+            for (int b = 1; b <= a; b++) {
+                System.out.print("*");
+            }
+            for (int c = 1; c <= 2 * n - 2 * a; c++) {
+                System.out.print(" ");
+            }
+            for (int d = 1; d <= a; d++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+    }
+
+    /*
+     *
+     * Write a program to print the below pattern
     E 
     D E
     C D E 
@@ -481,6 +524,6 @@ public class Patterns {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        solution.pattern20(5);
+        solution.pattern21(4);
     }
 }
