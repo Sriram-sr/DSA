@@ -2,6 +2,71 @@ class Solution {
     /*
      *
      * Write a program to print the below pattern
+    *****
+    *   *
+    *   *
+    *   *
+    *****
+    */
+
+    public void pattern23(int n) {
+        for (int row = 1; row <= n; row++) {
+            for (int col = 1; col <= n; col++) {
+                if (row == 1 || row == n || col == 1 || col == n) {
+                    System.out.print("*");
+                } else {
+                    System.out.print(" ");
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    /*
+     *
+     * Write a program to print the below pattern
+    *        *
+    **      **
+    ***    ***
+    ****  ****
+    **********
+    ****  ****
+    ***    ***
+    **      **
+    *        *
+    */
+
+    public void pattern22(int n) {
+        for (int x = 1; x <= n; x++) {
+            for (int i = 1; i <= x; i++) {
+                System.out.print("*");
+            }
+            for (int j = 1; j <= 2 * n - 2 * x; j++) {
+                System.out.print(" ");
+            }
+            for (int k = 1; k <= x; k++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+
+        for (int p = 1; p < n; p++) {
+            for (int q = 1; q <= n - p; q++) {
+                System.out.print("*");
+            }
+            for (int r = 1; r <= 2 * p; r++) {
+                System.out.print(" ");
+            }
+            for (int s = 1; s <= n - p; s++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+    }
+
+    /*
+     *
+     * Write a program to print the below pattern
     **********
     ****  ****
     ***    ***
@@ -524,6 +589,6 @@ public class Patterns {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        solution.pattern21(4);
+        solution.pattern23(5);
     }
 }
