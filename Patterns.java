@@ -2,6 +2,33 @@ class Solution {
     /*
      *
      * Write a program to print the below pattern
+     * 
+     ***
+    *   *
+    *   *
+    *****
+    *   *
+    *   *
+    *   *
+    *
+    */
+    
+    public void patternA() {
+        for (int row = 1; row <= 7; row++) {
+            for (int col = 1; col <= 5; col++) {
+                if (((col == 1 || col == 5) && row != 1) || (row == 1 && col > 1 && col < 5) || row == 4) {
+                    System.out.print("*");
+                } else {
+                    System.out.print(" ");
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    /*
+     *
+     * Write a program to print the below pattern
     *****
     *   *
     *   *
@@ -589,6 +616,6 @@ public class Patterns {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        solution.pattern23(5);
+        solution.patternA();
     }
 }
