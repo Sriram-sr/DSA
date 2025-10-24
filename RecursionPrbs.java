@@ -100,11 +100,28 @@ class RecursionSolutions {
         swapIntegers(nums, 0, nums.length - 1);
         return nums;
     }
+
+    public boolean compareElement(ArrayList<Integer> nums, int idx) {
+        if (idx == nums.size() - 1)
+            return true;
+
+        if (nums.get(idx) > nums.get(idx + 1))
+            return false;
+
+        return compareElement(nums, idx + 1);
+    }
+
+    public boolean isSorted(ArrayList<Integer> nums) {
+        if (nums.size() == 1)
+            return true;
+
+        return compareElement(nums, 0);
+    }
 }
 
 public class RecursionPrbs {
     public static void main(String[] args) {
         RecursionSolutions solution = new RecursionSolutions();
-        System.out.println(Arrays.toString(solution.reverseArray(new int[] { 1, 2, 3, 4, 5 })));
+        System.out.println(solution.isSorted(new ArrayList<Integer>(Arrays.asList(1, 1, 3, 2, 5))));
     }
 }
