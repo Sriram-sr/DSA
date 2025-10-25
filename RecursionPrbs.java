@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 
 class RecursionSolutions {
     // Sum of First N Numbers
@@ -111,17 +110,76 @@ class RecursionSolutions {
         return compareElement(nums, idx + 1);
     }
 
+    // Check if the Array is Sorted
     public boolean isSorted(ArrayList<Integer> nums) {
         if (nums.size() == 1)
             return true;
 
         return compareElement(nums, 0);
     }
+
+    public int getSumOfDigits(int num) {
+        if (num <= 0) {
+            return 0;
+        }
+
+        return (num % 10) + getSumOfDigits(num / 10);
+    }
+
+    // Sum of Digits in a Given Number
+    public int addDigits(int num) {
+        // Approach 1
+
+        // while (num >= 10) {
+        // num = getSumOfDigits(num);
+        // }
+
+        // return num;
+
+        // Approach 2
+
+        // if (num < 10) {
+        // return num;
+        // }
+
+        // int sum = 0;
+        // while (num != 0) {
+        // sum += num % 10;
+        // num /= 10;
+        // }
+
+        // return addDigits(sum);
+
+        // Approach 3
+
+        // if (num < 10) {
+        // return num;
+        // }
+
+        // return addDigits(getSumOfDigits(num));
+
+        // Approach 4
+
+        if (num == 0) {
+            return 0;
+        }
+
+        return (num - 1) % 9 + 1;
+    }
+
+    // Fibonacci Number
+    public int fibonacci(int n) {
+        if (n <= 1) {
+            return n;
+        }
+
+        return fibonacci(n - 1) + fibonacci(n - 2);
+    }
 }
 
 public class RecursionPrbs {
     public static void main(String[] args) {
         RecursionSolutions solution = new RecursionSolutions();
-        System.out.println(solution.isSorted(new ArrayList<Integer>(Arrays.asList(1, 1, 3, 2, 5))));
+        System.out.println(solution.addDigits(529));
     }
 }

@@ -285,11 +285,48 @@ class MathSolutions {
 
         return Arrays.copyOf(temp, count);
     }
+
+    // Sum of Digits in a Given Number
+
+    public int addDigits(int num) {
+        int count = 0;
+        while (true) {
+            if (count < 10 && num <= 0) {
+                break;
+            }
+            if (num <= 0) {
+                num = count;
+                count = 0;
+            }
+            count += num % 10;
+            num /= 10;
+        }
+
+        return count;
+    }
+
+    // Fibonacci Number
+
+    public int fibonacci(int n) {
+        if (n <= 1) {
+            return n;
+        }
+
+        int last = 1, slast = 0, current = 1;
+        for (int i = 2; i <= n; i++) {
+            current = last + slast;
+            slast = last;
+            last = current;
+        }
+
+        return current;
+    }
+
 }
 
 public class MathPrbs {
     public static void main(String[] args) {
         MathSolutions mathSolutions = new MathSolutions();
-        System.out.println(mathSolutions.sumOfDigits(1234));
+        System.out.println(mathSolutions.fibonacci(8));
     }
 }
