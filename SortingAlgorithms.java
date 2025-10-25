@@ -20,11 +20,33 @@ class SortingSolutions {
 
         return nums;
     }
+
+    // Bubble Sort
+    public int[] bubbleSort(int[] nums) {
+        int n = nums.length, temp;
+        boolean isSwapped;
+
+        for (int idx = 0; idx <= n - 1; idx++) {
+            isSwapped = false;
+            for (int subIdx = 0; subIdx < n - 1 - idx; subIdx++) {
+                if (nums[subIdx] > nums[subIdx + 1]) {
+                    temp = nums[subIdx + 1];
+                    nums[subIdx + 1] = nums[subIdx];
+                    nums[subIdx] = temp;
+                    isSwapped = true;
+                }
+            }
+            if (!isSwapped)
+                break;
+        }
+
+        return nums;
+    }
 }
 
 public class SortingAlgorithms {
     public static void main(String[] args) {
         SortingSolutions solution = new SortingSolutions();
-        System.out.println(Arrays.toString(solution.selectionSort(new int[] { 5, 3, 1, 2, 4 })));
+        System.out.println(Arrays.toString(solution.bubbleSort(new int[] { 7, 2, 9, 3, 4 })));
     }
 }
