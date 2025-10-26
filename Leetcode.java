@@ -1,7 +1,24 @@
 class Problems {
-    public int Problem_7(int x) {
-        // Reverse Integer
+    // Max Consecutive Ones
+    public int Problem_485(int[] nums) {
+        int maxFreq = 0, tempFreq = 0;
 
+        for (int ele : nums) {
+            if (ele == 0) {
+                tempFreq = 0;
+            } else {
+                tempFreq += 1;
+                if (tempFreq > maxFreq || maxFreq == 0) {
+                    maxFreq = tempFreq;
+                }
+            }
+        }
+
+        return maxFreq;
+    }
+
+    // Reverse Integer
+    public int Problem_7(int x) {
         long reversed = 0;
         int remainder = 0;
         while (x != 0) {
