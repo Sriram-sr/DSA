@@ -128,11 +128,38 @@ class ArraySolutions {
         reverse(nums, 0, n - 1);
         System.out.println(Arrays.toString(nums));
     }
+
+    // Move Zeros to End
+    public void moveZeroes(int[] nums) {
+        int zeroPointer = -1, temp;
+
+        for (int idx = 0; idx < nums.length; idx++) {
+            if (nums[idx] == 0) {
+                zeroPointer = idx;
+                break;
+            }
+        }
+
+        if (zeroPointer == -1) {
+            return;
+        }
+
+        for (int nonZeroPointer = zeroPointer + 1; nonZeroPointer < nums.length; nonZeroPointer++) {
+            if (nums[nonZeroPointer] != 0) {
+                temp = nums[nonZeroPointer];
+                nums[nonZeroPointer] = nums[zeroPointer];
+                nums[zeroPointer] = temp;
+                zeroPointer++;
+            }
+        }
+
+        System.out.println(Arrays.toString(nums));
+    }
 }
 
 public class ArrayPrbs {
     public static void main(String[] args) {
         ArraySolutions solution = new ArraySolutions();
-        solution.rotateArray(new int[] { 3, 12, 1, 7, 5 }, 3); // output: [7, 5, 3, 12, 1]
+        solution.moveZeroes(new int[] { 0, 0, 0, 1, 3, -2 });
     }
 }
