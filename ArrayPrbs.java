@@ -155,11 +155,41 @@ class ArraySolutions {
 
         System.out.println(Arrays.toString(nums));
     }
+
+    // Remove duplicates from sorted array
+    public int removeDuplicates(int[] nums) {
+        // Optimal O(n) & O(1) space
+
+        // int count = 0, temp = Integer.MIN_VALUE, swapIdx = -1;
+
+        // for (int idx = 0; idx < nums.length; idx++) {
+        // if (nums[idx] != temp) {
+        // count++;
+        // nums[++swapIdx] = nums[idx];
+        // }
+        // temp = nums[idx];
+        // }
+
+        // System.out.println(Arrays.toString(nums));
+        // return count;
+
+        // Approach 2 O(n) & O(1) space
+
+        int uniquePtr = 0;
+        for (int repeatPtr = 1; repeatPtr < nums.length; repeatPtr++) {
+            if (nums[uniquePtr] != nums[repeatPtr]) {
+                nums[uniquePtr + 1] = nums[repeatPtr];
+                uniquePtr++;
+            }
+        }
+
+        return uniquePtr + 1;
+    }
 }
 
 public class ArrayPrbs {
     public static void main(String[] args) {
         ArraySolutions solution = new ArraySolutions();
-        solution.moveZeroes(new int[] { 0, 0, 0, 1, 3, -2 });
+        System.out.println(solution.removeDuplicates(new int[] { -2, 2, 4, 4, 4, 4, 5, 5 }));
     }
 }
