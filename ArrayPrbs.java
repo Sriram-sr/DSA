@@ -1,4 +1,7 @@
 import java.util.Arrays;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.ArrayList;
 
 class ArraySolutions {
     // Linear Search
@@ -185,11 +188,157 @@ class ArraySolutions {
 
         return uniquePtr + 1;
     }
+
+    // Find missing number
+    public int missingNumber(int[] nums) {
+        // Optimal 1 O(n) & O(1) space
+
+        // int n = nums.length;
+        // int expectedSum = n * (n + 1) / 2;
+        // int actualSum = 0;
+
+        // for (int idx = 0; idx < n; idx++) {
+        // actualSum += nums[idx];
+        // }
+
+        // return expectedSum - actualSum;
+
+        // Optimal 2 O(n) & O(1) space
+
+        int n = nums.length;
+        int xor1 = 0;
+        int xor2 = 0;
+
+        for (int idx = 0; idx < n; idx++) {
+            xor1 ^= idx + 1;
+            xor2 ^= nums[idx];
+        }
+
+        return xor1 ^ xor2;
+    }
+
+    // Union of two sorted arrays
+    public int[] unionArray(int[] nums1, int[] nums2) {
+        // Brute O((n + m) log(n + m)) + O(n + m) & O(n + m) space
+
+        // Set<Integer> union = new TreeSet<>();
+
+        // for (int ele : nums1) {
+        // union.add(ele);
+        // }
+
+        // for (int ele : nums2) {
+        // union.add(ele);
+        // }
+
+        // int resultIdx = 0;
+        // int[] result = new int[union.size()];
+        // for (int ele : union) {
+        // result[resultIdx++] = ele;
+        // }
+
+        // return result;
+
+        // Optimal O(n + m) & O(n + m) space
+
+        int firstPtr = 0, secondPtr = 0;
+        ArrayList<Integer> unionList = new ArrayList<>();
+
+        while (firstPtr < nums1.length && secondPtr < nums2.length) {
+            if (nums1[firstPtr] < nums2[secondPtr]) {
+                if (unionList.isEmpty() || unionList.get(unionList.size() - 1) != nums1[firstPtr]) {
+                    unionList.add(nums1[firstPtr]);
+                }
+                firstPtr++;
+            } else {
+                if (unionList.isEmpty() || unionList.get(unionList.size() - 1) != nums2[secondPtr]) {
+                    unionList.add(nums2[secondPtr]);
+                }
+                secondPtr++;
+            }
+        }
+
+        while (firstPtr < nums1.length) {
+            if (unionList.get(unionList.size() - 1) != nums1[firstPtr]) {
+                unionList.add(nums1[firstPtr]);
+            }
+            firstPtr++;
+        }
+
+        while (secondPtr < nums2.length) {
+            if (unionList.get(unionList.size() - 1) != nums2[secondPtr]) {
+                unionList.add(nums2[secondPtr]);
+            }
+            secondPtr++;
+        }
+
+        int[] result = new int[unionList.size()];
+        for (int idx = 0; idx < unionList.size(); idx++) {
+            result[idx] = unionList.get(idx);
+        }
+
+        return result;
+    }
+
+    // Intersection of two sorted arrays
+    public int[] intersectionArray(int[] nums1, int[] nums2) {
+        // Brute force: O(n1 * n2) time, O(n2) extra space for 'visited' (plus
+        // O(min(n1,n2)) output )
+
+        // int[] visited = new int[nums2.length];
+        // ArrayList<Integer> intersectionList = new ArrayList<>();
+
+        // for (int fPtr = 0; fPtr < nums1.length; fPtr++) {
+        // for (int sPtr = 0; sPtr < nums2.length; sPtr++) {
+        // if (visited[sPtr] != 1 && nums1[fPtr] == nums2[sPtr]) {
+        // intersectionList.add(nums1[fPtr]);
+        // visited[sPtr] = 1;
+        // break;
+        // }
+        // if (nums2[sPtr] > nums1[fPtr]) {
+        // break;
+        // }
+        // }
+        // }
+
+        // int[] result = new int[intersectionList.size()];
+        // for (int idx = 0; idx < intersectionList.size(); idx++) {
+        // result[idx] = intersectionList.get(idx);
+        // }
+
+        // return result;
+
+        // Optimal: O(n1 + n2) time, O(min(n1, n2)) space
+
+        int fPtr = 0, sPtr = 0;
+        ArrayList<Integer> intersectionList = new ArrayList<>();
+
+        while (fPtr < nums1.length && sPtr < nums2.length) {
+            if (nums1[fPtr] < nums2[sPtr]) {
+                fPtr++;
+            } else if (nums2[sPtr] < nums1[fPtr]) {
+                sPtr++;
+            } else {
+                intersectionList.add(nums1[fPtr]);
+                fPtr++;
+                sPtr++;
+            }
+        }
+
+        int[] result = new int[intersectionList.size()];
+        for (int idx = 0; idx < intersectionList.size(); idx++) {
+            result[idx] = intersectionList.get(idx);
+        }
+
+        return result;
+    }
 }
 
 public class ArrayPrbs {
     public static void main(String[] args) {
         ArraySolutions solution = new ArraySolutions();
-        System.out.println(solution.removeDuplicates(new int[] { -2, 2, 4, 4, 4, 4, 5, 5 }));
+        System.out.println(
+                Arrays.toString(
+                        solution.intersectionArray(new int[] { 1, 2, 2, 3, 3, 3 }, new int[] { 2, 3, 3, 4, 5, 7 })));
     }
 }
