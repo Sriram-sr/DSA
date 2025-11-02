@@ -560,6 +560,7 @@ class ArraySolutions {
         return result;
     }
 
+    // Pascal's Triangle III
     public List<List<Integer>> pascalTriangleIII(int n) {
         List<List<Integer>> fullPascalRows = new ArrayList<>();
         for (int row = 1; row <= n; row++) {
@@ -568,11 +569,99 @@ class ArraySolutions {
 
         return fullPascalRows;
     }
+
+    // public
+    // Rotate matrix by 90 degrees
+    public void rotateMatrix(int[][] matrix) {
+        // Brute O(2n^2) time and O(n^2) space
+
+        // int rows = matrix.length;
+        // int columns = matrix[0].length;
+        // int[][] result = new int[rows][columns];
+
+        // for (int row = 0; row < rows; row++) {
+        // for (int col = 0; col < columns; col++) {
+        // result[col][rows - row - 1] = matrix[row][col];
+        // }
+        // }
+
+        // // Copy back to original matrix
+        // for (int row = 0; row < rows; row++) {
+        // for (int col = 0; col < columns; col++) {
+        // matrix[row][col] = result[row][col];
+        // }
+        // }
+
+        // Optimal O(1) space
+
+        // Find transpose and reverse each row
+        int n = matrix.length, temp;
+        // O(n/2 * n/2)
+        for (int row = 0; row < n - 1; row++) {
+            for (int col = row + 1; col < n; col++) {
+                temp = matrix[row][col];
+                matrix[row][col] = matrix[col][row];
+                matrix[col][row] = temp;
+            }
+        }
+
+        // O(n * n/2)
+        for (int row = 0; row < n; row++) {
+            reverse(matrix[row], 0, matrix[row].length - 1);
+        }
+    }
+
+    // Two Sum
+    public int[] twoSum(int[] nums, int target) {
+        // Brute O(n^2) time and O(1) space
+
+        // for (int fPtr = 0; fPtr < nums.length; fPtr++) {
+        // for (int sPtr = fPtr + 1; sPtr < nums.length; sPtr++) {
+        // if (nums[fPtr] + nums[sPtr] == target) {
+        // return new int[] { fPtr, sPtr };
+        // }
+        // }
+        // }
+
+        // return new int[] { -1, -1 };
+
+        // Better O(n) time and O(n) space
+
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        for (int idx = 0; idx < nums.length; idx++) {
+            if (map.get(target - nums[idx]) != null) {
+                return new int[] { map.get(target - nums[idx]), idx };
+            } else {
+                map.put(nums[idx], idx);
+            }
+        }
+
+        return new int[] { -1, -1 };
+    }
+
+    // Two Sum - II
+    public boolean isTwoSum(int[] nums, int target) {
+        Arrays.sort(nums);
+        int left = 0;
+        int right = nums.length - 1;
+
+        while (left < right) {
+            if (nums[left] + nums[right] < target)
+                left++;
+            else if (nums[left] + nums[right] > target)
+                right--;
+            else
+                return true;
+        }
+
+        return false;
+    }
 }
 
 public class ArrayPrbs {
     public static void main(String[] args) {
         ArraySolutions solution = new ArraySolutions();
-        System.out.println(solution.pascalTriangleIII(6));
+        System.out.println(solution.isTwoSum(new int[] { 1, 3, 5, -7, 6, -3 }, -2));
     }
 }

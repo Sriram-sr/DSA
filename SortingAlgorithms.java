@@ -98,11 +98,50 @@ class SortingSolutions {
         int mid = (low + high) / 2;
         divide(arr, low, mid);
         divide(arr, mid + 1, high);
-        merge(arr, low, mid, high); 
+        merge(arr, low, mid, high);
     }
 
     public int[] mergeSort(int nums[]) {
         divide(nums, 0, nums.length - 1);
+
+        return nums;
+    }
+
+    public int partition(int[] arr, int low, int high) {
+        int left = low;
+        int right = high;
+        int pivot = arr[low];
+        int temp;
+
+        while (left < right) {
+            while (arr[left] <= pivot && left <= high - 1)
+                left++;
+            while (arr[right] > pivot && right >= low - 1)
+                right--;
+
+            if (left < right) {
+                temp = arr[right];
+                arr[right] = arr[left];
+                arr[left] = temp;
+            }
+        }
+        temp = arr[right];
+        arr[right] = arr[low];
+        arr[low] = temp;
+
+        return right;
+    }
+
+    public void divideAndConquer(int[] arr, int low, int high) {
+        if (low < high) {
+            int partitionIdx = partition(arr, low, high);
+            divideAndConquer(arr, low, partitionIdx - 1);
+            divideAndConquer(arr, partitionIdx + 1, high);
+        }
+    }
+
+    public int[] quickSort(int[] nums) {
+        divideAndConquer(nums, 0, nums.length - 1);
 
         return nums;
     }
@@ -111,6 +150,6 @@ class SortingSolutions {
 public class SortingAlgorithms {
     public static void main(String[] args) {
         SortingSolutions solution = new SortingSolutions();
-        System.out.println(Arrays.toString(solution.mergeSort(new int[] { 7, 2, 9, 3, 4 })));
+        System.out.println(Arrays.toString(solution.quickSort(new int[] { 7, 4, 1, 5, 3 })));
     }
 }
