@@ -1,0 +1,257 @@
+import java.util.Arrays;
+
+class SearchingSolutions {
+    public int binarySearchRecursive(int[] arr, int target, int low, int high) {
+        if (low > high) {
+            return -1;
+        }
+
+        int mid = (low + high) / 2;
+
+        if (target == arr[mid])
+            return mid;
+        else if (target > arr[mid])
+            return binarySearchRecursive(arr, target, mid + 1, high);
+
+        return binarySearchRecursive(arr, target, low, mid - 1);
+    }
+
+    public int binarySearch(int[] nums, int target) {
+        // O(log n) Approach - Iterative
+
+        // int low = 0, mid, high = nums.length - 1;
+
+        // while (low <= high) {
+        // mid = (low + high) / 2;
+
+        // if (nums[mid] == target)
+        // return mid;
+        // else if (target < nums[mid])
+        // high = mid - 1;
+        // else
+        // low = mid + 1;
+        // }
+        // return -1;
+
+        // Recursive Approach
+
+        return binarySearchRecursive(nums, target, 0, nums.length - 1);
+    }
+
+    // Lower Bound
+    public int lowerBound(int[] nums, int x) {
+        // O(log n)
+
+        int low = 0;
+        int high = nums.length - 1;
+        int answer = high + 1;
+        int mid;
+
+        while (low <= high) {
+            mid = (low + high) / 2;
+            if (nums[mid] >= x) {
+                answer = mid;
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+
+        return answer;
+    }
+
+    // Upper Bound
+    public int upperBound(int[] nums, int x) {
+        // O(log n)
+
+        int low = 0;
+        int high = nums.length - 1;
+        int answer = high + 1;
+        int mid;
+
+        while (low <= high) {
+            mid = (low + high) / 2;
+            if (nums[mid] > x) {
+                answer = mid;
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+
+        return answer;
+    }
+
+    // Search insert position
+    public int searchInsert(int[] nums, int target) {
+        return lowerBound(nums, target);
+    }
+
+    public int getFloor(int[] nums, int x) {
+        int low = 0;
+        int high = nums.length - 1;
+        int answer = -1;
+        int mid;
+
+        while (low <= high) {
+            mid = (low + high) / 2;
+            if (nums[mid] <= x) {
+                answer = nums[mid];
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+
+        return answer;
+    }
+
+    public int getCeil(int[] nums, int x) {
+        int low = 0;
+        int high = nums.length - 1;
+        int answer = -1;
+        int mid;
+
+        while (low <= high) {
+            mid = (low + high) / 2;
+            if (nums[mid] >= x) {
+                answer = nums[mid];
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+
+        return answer;
+    }
+
+    public int[] getFloorAndCeil(int[] nums, int x) {
+        return new int[] { getFloor(nums, x), getCeil(nums, x) };
+    }
+
+    public int getFirstOccurance(int[] arr, int target) {
+        int first = -1;
+        int low = 0;
+        int high = arr.length;
+        int mid;
+
+        while (low <= high) {
+            mid = (low + high) / 2;
+
+            if (arr[mid] == target) {
+                first = mid;
+                high = mid - 1;
+            } else if (arr[mid] < target) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+
+        return first;
+    }
+
+    public int getLastOccurance(int[] arr, int target) {
+        int last = -1;
+        int low = 0;
+        int high = arr.length - 1;
+        int mid;
+
+        while (low <= high) {
+            mid = (low + high) / 2;
+
+            if (arr[mid] == target) {
+                last = mid;
+                low = mid + 1;
+            } else if (arr[mid] < target) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+
+        return last;
+    }
+
+    // First and last occurrence
+    public int[] getFirstAndLastOccurance(int[] nums, int target) {
+        // Brute: O(n)
+
+        // int[] result = { -1, -1 };
+
+        // for (int idx = 0; idx < nums.length; idx++) {
+        // if (nums[idx] == target) {
+        // if (result[0] == -1)
+        // result[0] = idx;
+        // result[1] = idx;
+        // }
+        // }
+
+        // return result;
+
+        // Optimal: 2 O(log n) && O(1) space
+
+        // int lb = lowerBound(nums, target);
+        // if (lb == nums.length || nums[lb] != target)
+        // return new int[] { -1, -1 };
+
+        // return new int[] { lb, upperBound(nums, target) - 1 };
+
+        // Optimal: Using binary search 2 O(log n) && O(1) space
+
+        int first = getFirstOccurance(nums, target);
+        if (first == -1)
+            return new int[] { -1, -1 };
+
+        return new int[] { first, getLastOccurance(nums, target) };
+    }
+
+    public int rotatedSearch(int[] nums, int k) {
+        // Optimal: O(log n) && O(1) space
+
+        int low = 0;
+        int high = nums.length - 1;
+        int mid;
+
+        while (low <= high) {
+            mid = (low + high) / 2;
+
+            if (nums[mid] == k) {
+                return mid;
+            } else if (nums[low] <= nums[mid]) {
+                // This part is checking for left as sorted portion
+                if (nums[low] <= k && k <= nums[mid])
+                    high = mid - 1;
+                else
+                    low = mid + 1;
+            } else {
+                // This part is checking for right as sorted portion
+                if (nums[mid] <= k && k <= nums[high])
+                    low = mid + 1;
+                else
+                    high = mid - 1;
+            }
+        }
+
+        return -1;
+    }
+
+    // Count Occurrences in a Sorted Array
+    public int countOccurrences(int[] arr, int target) {
+        // Optimal: O(log n) && O(1) space
+
+        int[] occurances = getFirstAndLastOccurance(arr, target);
+
+        if (occurances[0] == -1)
+            return 0;
+
+        return occurances[1] - occurances[0] + 1;
+    }
+}
+
+public class SearchingAlgorithms {
+    public static void main(String[] args) {
+        SearchingSolutions solutions = new SearchingSolutions();
+        System.out.println(solutions.countOccurrences(new int[] { 5, 5, 5, 5, 5, 5 }, 5));
+    }
+}
