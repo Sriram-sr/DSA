@@ -1,4 +1,4 @@
-import java.util.Arrays;
+import java.util.ArrayList;
 
 class SearchingSolutions {
     public int binarySearchRecursive(int[] arr, int target, int low, int high) {
@@ -238,7 +238,7 @@ class SearchingSolutions {
 
     // Count Occurrences in a Sorted Array
     public int countOccurrences(int[] arr, int target) {
-        // Optimal: O(log n) && O(1) space
+        // Optimal: 2 O(log n) && O(1) space
 
         int[] occurances = getFirstAndLastOccurance(arr, target);
 
@@ -247,11 +247,156 @@ class SearchingSolutions {
 
         return occurances[1] - occurances[0] + 1;
     }
+
+    public boolean rotatedSearchWithDuplicates(int[] nums, int k) {
+        // Optimal
+        // O(log n) -> Average case
+        // O(n/2) -> Worst case
+
+        int low = 0;
+        int high = nums.length - 1;
+        int mid;
+
+        while (low <= high) {
+            mid = (low + high) / 2;
+
+            if (nums[mid] == k)
+                return true;
+
+            if (nums[low] == nums[mid] && nums[mid] == nums[high]) {
+                // Shrinking the search space
+                low++;
+                high--;
+                continue;
+            }
+
+            if (nums[low] <= nums[mid]) {
+                // This part is checking for left as sorted portion
+                if (nums[low] <= k && k <= nums[mid])
+                    high = mid - 1;
+                else
+                    low = mid + 1;
+            } else {
+                // This part is checking for right as sorted portion
+                if (nums[mid] <= k && k <= nums[high])
+                    low = mid + 1;
+                else
+                    high = mid - 1;
+            }
+        }
+
+        return false;
+    }
+
+    public int findMin(ArrayList<Integer> arr) {
+        // Optimal: O(log n) && O(1) space
+
+        int low = 0;
+        int high = arr.size() - 1;
+        int minElement = Integer.MAX_VALUE;
+        int mid;
+
+        while (low <= high) {
+            mid = (low + high) / 2;
+
+            if (arr.get(low) < arr.get(high)) {
+                minElement = Math.min(minElement, arr.get(low));
+                break;
+            }
+
+            if (arr.get(low) <= arr.get(mid)) {
+                minElement = Math.min(minElement, arr.get(low));
+                low = mid + 1;
+            } else {
+                minElement = Math.min(minElement, arr.get(mid));
+                high = mid - 1;
+            }
+        }
+
+        return minElement;
+    }
+
+    public int findKRotation(ArrayList<Integer> nums) {
+        // Brute: O(n) && O(1) space
+
+        // for (int idx = 0; idx < nums.size() - 1; idx++) {
+        // if (nums.get(idx + 1) < nums.get(idx))
+        // return idx + 1;
+        // }
+
+        // return 0;
+
+        // Optimal: O(log n) && O(1) space
+
+        int low = 0;
+        int high = nums.size() - 1;
+        int minElement = Integer.MAX_VALUE;
+        int minIdx = -1, mid;
+
+        while (low <= high) {
+            mid = (low + high) / 2;
+
+            if (nums.get(low) < nums.get(high)) {
+                if (nums.get(low) < minElement) {
+                    minElement = nums.get(low);
+                    minIdx = low;
+                }
+                break;
+            }
+
+            if (nums.get(low) <= nums.get(mid)) {
+                if (nums.get(low) < minElement) {
+                    minElement = nums.get(low);
+                    minIdx = low;
+                }
+                low = mid + 1;
+            } else {
+                if (nums.get(mid) < minElement) {
+                    minElement = nums.get(mid);
+                    minIdx = mid;
+                }
+                high = mid - 1;
+            }
+        }
+
+        return minIdx;
+    }
+
+    public int singleNonDuplicate(int[] nums) {
+        for (int idx = 0; idx < nums.length - 1; idx++) {
+            if (idx == nums.length - 1 && idx % 2 != 0) {
+                return nums[idx];
+            }
+
+            if (idx % 2 == 0) {
+                if (nums[idx] != nums[idx + 1])
+                    return nums[idx];
+            }
+        }
+
+        return -1;
+    }
+
+    public int findPeakElement(int[] arr) {
+        for (int idx = 1; idx < arr.length; idx++) {
+            if (idx == arr.length - 1) {
+                if (arr[idx - 1] < arr[idx])
+                    return idx;
+            }
+
+            if (arr[idx - 1] < arr[idx] && arr[idx + 1] < arr[idx])
+                return idx;
+        }
+
+        return -1;
+    }
 }
 
 public class SearchingAlgorithms {
     public static void main(String[] args) {
         SearchingSolutions solutions = new SearchingSolutions();
-        System.out.println(solutions.countOccurrences(new int[] { 5, 5, 5, 5, 5, 5 }, 5));
+        System.out.println(solutions.singleNonDuplicate(new int[] { -8685, -8685, -8220, -8220, -7535, -7535, -7347,
+                -7347, -7177, -7177, -5853, -5853, -4718, -4718, -3544, -3544, -1856, -1856, -1440, -1440, -1192, -1192,
+                -435, -435, 2540, 2540, 2815, 2815, 8243 }));
     }
 }
