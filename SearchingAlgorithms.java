@@ -390,13 +390,32 @@ class SearchingSolutions {
 
         return -1;
     }
+
+    // Find square root of a number
+    public int floorSqrt(int n) {
+        // Optimal: O(log n)time & O(1) space
+        int low = 0;
+        int high = n;
+        long val;
+        int mid;
+
+        while (low <= high) {
+            mid = low + (high - low) / 2;
+            val = (long) mid * (long) mid;
+            if (val <= (long) n) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+
+        return high;
+    }
 }
 
 public class SearchingAlgorithms {
     public static void main(String[] args) {
         SearchingSolutions solutions = new SearchingSolutions();
-        System.out.println(solutions.singleNonDuplicate(new int[] { -8685, -8685, -8220, -8220, -7535, -7535, -7347,
-                -7347, -7177, -7177, -5853, -5853, -4718, -4718, -3544, -3544, -1856, -1856, -1440, -1440, -1192, -1192,
-                -435, -435, 2540, 2540, 2815, 2815, 8243 }));
+        System.out.println(solutions.floorSqrt(28));
     }
 }
