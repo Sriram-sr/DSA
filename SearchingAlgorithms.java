@@ -411,11 +411,102 @@ class SearchingSolutions {
 
         return high;
     }
+
+    public long findPower(int b, int exp) {
+        long base = b;
+        long ans = 1;
+
+        while (exp > 0) {
+            if (exp % 2 == 1) {
+                exp--;
+                ans *= base;
+            } else {
+                exp /= 2;
+                base *= base;
+            }
+        }
+
+        return ans;
+    }
+
+    public int findPowHelper(int mid, int N, int M) {
+        // long ans = 1;
+
+        // for (int cnt = 1; cnt <= N; cnt++) {
+        // ans *= mid;
+        // if (ans > M)
+        // return 2;
+        // }
+        // if (ans == M)
+        // return 1;
+
+        // return 0;
+
+        // Alternate
+
+        long base = mid;
+        long ans = 1;
+
+        while (N > 0) {
+            if (N % 2 == 1) {
+                N--;
+                ans *= base;
+                if (ans > M)
+                    return 2;
+            } else {
+                N /= 2;
+                base *= base;
+                if (base > M)
+                    return 2;
+            }
+        }
+
+        if (ans == M)
+            return 1;
+
+        return 0;
+    }
+
+    public int NthRoot(int N, int M) {
+        // Brute O(M log N)
+
+        // long value;
+
+        // for (int idx = 1; idx <= M; idx++) {
+        // value = findPower(idx, N);
+        // if (value == M)
+        // return idx;
+        // else if (value > M)
+        // break;
+        // }
+
+        // return -1;
+
+        // Binary search Optimal: O(N log M) or O(log M * log N) based on findPowHelper
+        // method implementation
+
+        int low = 0, high = M;
+        int mid;
+        long answer;
+
+        while (low <= high) {
+            mid = (low + high) / 2;
+            answer = findPowHelper(mid, N, M);
+            if (answer == 1)
+                return mid;
+            else if (answer == 0)
+                low = mid + 1;
+            else
+                high = mid - 1;
+        }
+
+        return -1;
+    }
 }
 
 public class SearchingAlgorithms {
     public static void main(String[] args) {
         SearchingSolutions solutions = new SearchingSolutions();
-        System.out.println(solutions.floorSqrt(28));
+        System.out.println(solutions.NthRoot(4, 81));
     }
 }
