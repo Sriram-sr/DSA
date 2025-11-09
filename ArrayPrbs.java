@@ -29,7 +29,7 @@ class ArraySolutions {
 
     // Second Largest Element
     public int secondLargestElement(int[] nums) {
-        // Brute O(n log n)
+        // Brute O(n log n + n)
 
         // if (nums.length <= 1) {
         // return -1;
@@ -44,38 +44,95 @@ class ArraySolutions {
 
         // return -1;
 
-        // Optimal O(n)
+        // Better: O(2n)
 
-        int max = nums[0], smax = Integer.MIN_VALUE;
-        for (int ele : nums) {
-            if (ele > max) {
-                smax = max;
-                max = ele;
-            } else if (ele > smax && ele < max)
-                smax = ele;
+        if (nums.length <= 1)
+            return -1;
+
+        int largest = nums[0], slargest = Integer.MIN_VALUE;
+
+        for (int idx = 0; idx < nums.length; idx++) {
+            if (nums[idx] > largest)
+                largest = nums[idx];
         }
 
-        if (smax == Integer.MIN_VALUE)
+        for (int idx = 0; idx < nums.length; idx++) {
+            if (nums[idx] > slargest && nums[idx] != largest) {
+                slargest = nums[idx];
+            }
+        }
+
+        if (slargest == Integer.MIN_VALUE)
             return -1;
-        return smax;
+
+        return slargest;
+
+        // Optimal O(n)
+
+        // int max = nums[0], smax = Integer.MIN_VALUE;
+        // for (int ele : nums) {
+        // if (ele > max) {
+        // smax = max;
+        // max = ele;
+        // } else if (ele > smax && ele < max)
+        // smax = ele;
+        // }
+
+        // if (smax == Integer.MIN_VALUE)
+        // return -1;
+        // return smax;
+    }
+
+    public int secondSmallestElement(int[] nums) {
+        int min = nums[0], smin = Integer.MAX_VALUE;
+
+        for (int idx = 1; idx < nums.length; idx++) {
+            if (nums[idx] < min) {
+                smin = min;
+                min = nums[idx];
+            } else if (nums[idx] < smin && nums[idx] != min) {
+                smin = nums[idx];
+            }
+        }
+
+        if (smin == Integer.MAX_VALUE)
+            return -1;
+
+        return smin;
     }
 
     // Maximum Consecutive Ones
     public int findMaxConsecutiveOnes(int[] nums) {
-        int maxFreq = 0, tempFreq = 0;
+        int maxFreq = 0, count;
 
-        for (int ele : nums) {
-            if (ele == 0) {
-                tempFreq = 0;
-            } else {
-                tempFreq += 1;
-                if (tempFreq > maxFreq || maxFreq == 0) {
-                    maxFreq = tempFreq;
+        for (int idx = 0; idx < nums.length; idx++) {
+            if (nums[idx] == 1) {
+                count = 0;
+                for (int subIdx = idx; subIdx < nums.length; subIdx++) {
+                    if (nums[subIdx] != 1)
+                        break;
+                    count++;
                 }
+                if (count > maxFreq)
+                    maxFreq = count;
             }
         }
 
         return maxFreq;
+        // int maxFreq = 0, tempFreq = 0;
+
+        // for (int ele : nums) {
+        // if (ele == 0) {
+        // tempFreq = 0;
+        // } else {
+        // tempFreq += 1;
+        // if (tempFreq > maxFreq) {
+        // maxFreq = tempFreq;
+        // }
+        // }
+        // }
+
+        // return maxFreq;
     }
 
     // Left Rotate Array by One
@@ -659,6 +716,6 @@ class ArraySolutions {
 public class ArrayPrbs {
     public static void main(String[] args) {
         ArraySolutions solution = new ArraySolutions();
-        System.out.println(solution.isTwoSum(new int[] { 1, 3, 5, -7, 6, -3 }, -2));
+        System.out.println(solution.findMaxConsecutiveOnes(new int[] { 1 }));
     }
 }
