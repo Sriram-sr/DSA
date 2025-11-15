@@ -2,6 +2,7 @@ import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 class ArraySolutions {
     // Linear Search
@@ -711,11 +712,119 @@ class ArraySolutions {
 
         return false;
     }
+
+    // Single Number - I
+    public int singleNumber(int[] nums) {
+        // Brute O(N^2) & O(1) space
+
+        // int count;
+
+        // for (int idx = 0; idx < nums.length; idx++) {
+        // count = 0;
+        // for (int subIdx = 0; subIdx < nums.length; subIdx++) {
+        // if (count == 2) {
+        // break;
+        // }
+        // if (nums[idx] == nums[subIdx])
+        // count++;
+        // }
+        // if (count == 1)
+        // return nums[idx];
+        // }
+
+        // return 0;
+
+        // Better O(N + N/2 + 1) & space O(N/2 + 1)
+
+        // HashMap<Integer, Integer> map = new HashMap<>();
+
+        // for (int val : nums) {
+        // map.put(val, map.getOrDefault(val, 0) + 1);
+        // }
+
+        // for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+        // if (entry.getValue() == 1)
+        // return entry.getKey();
+        // }
+
+        // return 0;
+
+        // Optimal O(N) & O(1) space
+
+        int xor = 0;
+
+        for (int idx = 0; idx < nums.length; idx++) {
+            xor ^= nums[idx];
+        }
+
+        return xor;
+    }
+
+    // Longest subarray with sum K
+    public int longestSubarray(int[] nums, int k) {
+        // Brute O(n^2) time and O(1) space
+
+        // int maxSub = 0;
+        // int sum;
+
+        // for (int left = 0; left < nums.length; left++) {
+        // sum = 0;
+        // for (int right = left; right < nums.length; right++) {
+        // sum += nums[right];
+        // if (sum == k && (right - left + 1) > maxSub)
+        // maxSub = right - left + 1;
+        // }
+        // }
+
+        // return maxSub;
+
+        // Better O(N x 1) Time & O(N) Space => Optimal soln when +ve & -ve
+
+        // HashMap<Integer, Integer> map = new HashMap<>();
+        // int sum = 0, rem;
+        // int maxSub = 0;
+
+        // for (int idx = 0; idx < nums.length; idx++) {
+        // sum += nums[idx];
+        // if (sum == k)
+        // maxSub = Math.max(maxSub, idx + 1);
+        // rem = sum - k;
+        // if (map.containsKey(rem))
+        // maxSub = Math.max(maxSub, idx - map.get(rem));
+        // if (!map.containsKey(sum)) {
+        // map.put(sum, idx);
+        // }
+        // }
+
+        // return maxSub;
+
+        // Optimal O(2N) Time & O(1) Space => When all +ve elements
+
+        int left = 0, right = 0;
+        int maxSub = 0, sum = nums[0];
+
+        while (right < nums.length) {
+            while (left <= right && sum > k) {
+                sum -= nums[left];
+                left++;
+            }
+
+            if (sum == k)
+                maxSub = Math.max(maxSub, right - left + 1);
+
+            right++;
+            if (right < nums.length)
+                sum += nums[right];
+        }
+
+        return maxSub;
+    }
 }
 
 public class ArrayPrbs {
     public static void main(String[] args) {
         ArraySolutions solution = new ArraySolutions();
-        System.out.println(solution.findMaxConsecutiveOnes(new int[] { 1 }));
+        System.out.println(
+                solution.longestSubarray(new int[] { 3, 8, 1, 4, 6, 7, 2 }, 10));
     }
 }
