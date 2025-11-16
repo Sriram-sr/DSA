@@ -680,15 +680,39 @@ class ArraySolutions {
 
         // return new int[] { -1, -1 };
 
-        // Better O(n) time and O(n) space
+        // Optimal O(n) time and O(n) space
 
-        HashMap<Integer, Integer> map = new HashMap<>();
+        // HashMap<Integer, Integer> map = new HashMap<>();
+
+        // for (int idx = 0; idx < nums.length; idx++) {
+        // if (map.get(target - nums[idx]) != null) {
+        // return new int[] { map.get(target - nums[idx]), idx };
+        // } else {
+        // map.put(nums[idx], idx);
+        // }
+        // }
+
+        // return new int[] { -1, -1 };
+
+        // Better O(N) + O(N log N) time & O(2N) space
+
+        int[][] indexedArr = new int[nums.length][2];
 
         for (int idx = 0; idx < nums.length; idx++) {
-            if (map.get(target - nums[idx]) != null) {
-                return new int[] { map.get(target - nums[idx]), idx };
+            indexedArr[idx][0] = nums[idx];
+            indexedArr[idx][1] = idx;
+        }
+
+        Arrays.sort(indexedArr, (x, y) -> Integer.compare(x[0], y[0]));
+
+        int left = 0, right = indexedArr.length - 1;
+        while (left <= right) {
+            if (indexedArr[left][0] + indexedArr[right][0] < target) {
+                left++;
+            } else if (indexedArr[left][0] + indexedArr[right][0] > target) {
+                right--;
             } else {
-                map.put(nums[idx], idx);
+                return new int[] { indexedArr[left][1], indexedArr[right][1] };
             }
         }
 
@@ -819,12 +843,35 @@ class ArraySolutions {
 
         return maxSub;
     }
+
+    public void sortArray(int[] arr) {
+        Integer[] indices = new Integer[arr.length];
+        int[][] indexedArr = new int[arr.length][2];
+
+        for (int idx = 0; idx < arr.length; idx++) {
+            indices[idx] = idx;
+        }
+
+        for (int idx = 0; idx < arr.length; idx++) {
+            indexedArr[idx][0] = arr[idx];
+            indexedArr[idx][1] = idx;
+        }
+
+        // Sort indexes
+        Arrays.sort(indexedArr, (i, j) -> Integer.compare(i[0], j[0]));
+
+        // Sort values
+        Arrays.sort(indices, (x, y) -> Integer.compare(arr[x], arr[y]));
+
+        for (int[] pair : indexedArr) {
+            System.out.println(Arrays.toString(pair));
+        }
+    }
 }
 
 public class ArrayPrbs {
     public static void main(String[] args) {
         ArraySolutions solution = new ArraySolutions();
-        System.out.println(
-                solution.longestSubarray(new int[] { 3, 8, 1, 4, 6, 7, 2 }, 10));
+        System.out.println(Arrays.toString(solution.twoSum(new int[] { -6, 7, 1, -7, 6, 2 }, 3)));
     }
 }
