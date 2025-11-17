@@ -3,6 +3,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Collections;
 
 class ArraySolutions {
     // Linear Search
@@ -721,6 +724,8 @@ class ArraySolutions {
 
     // Two Sum - II
     public boolean isTwoSum(int[] nums, int target) {
+        // Optimal O(n log n + n) time and O(1) space
+
         Arrays.sort(nums);
         int left = 0;
         int right = nums.length - 1;
@@ -867,11 +872,35 @@ class ArraySolutions {
             System.out.println(Arrays.toString(pair));
         }
     }
+
+    public List<List<Integer>> threeSum(int[] nums) {
+        Set<List<Integer>> set = new HashSet<>();
+        int n = nums.length;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                for (int k = j + 1; k < n; k++) {
+                    if (nums[i] + nums[j] + nums[k] == 0) {
+                        List<Integer> triplet = new ArrayList<>();
+                        triplet.add(nums[i]);
+                        triplet.add(nums[j]);
+                        triplet.add(nums[k]);
+                        Collections.sort(triplet);
+                        set.add(triplet);
+                    }
+                }
+            }
+        }
+
+        List<List<Integer>> result = new ArrayList<>(set);
+
+        return result;
+    }
 }
 
 public class ArrayPrbs {
     public static void main(String[] args) {
         ArraySolutions solution = new ArraySolutions();
-        System.out.println(Arrays.toString(solution.twoSum(new int[] { -6, 7, 1, -7, 6, 2 }, 3)));
+        System.out.println(solution.threeSum(new int[] { 2, -2, 0, 3, -3, 5 }));
     }
 }
