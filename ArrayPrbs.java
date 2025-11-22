@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.TreeSet;
 import java.util.Collections;
 
 class ArraySolutions {
@@ -874,21 +875,45 @@ class ArraySolutions {
     }
 
     public List<List<Integer>> threeSum(int[] nums) {
-        Set<List<Integer>> set = new HashSet<>();
-        int n = nums.length;
+        // Set<List<Integer>> set = new HashSet<>();
+        // int n = nums.length;
 
-        for (int i = 0; i < n; i++) {
-            for (int j = i + 1; j < n; j++) {
-                for (int k = j + 1; k < n; k++) {
-                    if (nums[i] + nums[j] + nums[k] == 0) {
-                        List<Integer> triplet = new ArrayList<>();
-                        triplet.add(nums[i]);
-                        triplet.add(nums[j]);
-                        triplet.add(nums[k]);
-                        Collections.sort(triplet);
-                        set.add(triplet);
-                    }
+        // for (int i = 0; i < n; i++) {
+        // for (int j = i + 1; j < n; j++) {
+        // for (int k = j + 1; k < n; k++) {
+        // if (nums[i] + nums[j] + nums[k] == 0) {
+        // List<Integer> triplet = new ArrayList<>();
+        // triplet.add(nums[i]);
+        // triplet.add(nums[j]);
+        // triplet.add(nums[k]);
+        // Collections.sort(triplet);
+        // set.add(triplet);
+        // }
+        // }
+        // }
+        // }
+
+        // List<List<Integer>> result = new ArrayList<>(set);
+
+        // return result;
+
+        // Better O(n^2) time & O(n) + O(2k) where k is size of triplet(used twice in set & result)
+        // TC would have been O(n^2 log m) when used a Treeset where m is current size of set
+
+        Set<List<Integer>> set = new HashSet<>();
+        Set<Integer> tempHash = new HashSet<>();
+        int k;
+
+        for (int i = 0; i < nums.length - 1; i++) {
+            tempHash.clear();
+            for (int j = i + 1; j < nums.length; j++) {
+                k = -(nums[i] + nums[j]);
+                if (tempHash.contains(k)) {
+                    List<Integer> triplet = new ArrayList<>(Arrays.asList(nums[i], nums[j], k));
+                    Collections.sort(triplet);
+                    set.add(triplet);
                 }
+                tempHash.add(nums[j]);
             }
         }
 
