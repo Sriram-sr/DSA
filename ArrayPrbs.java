@@ -897,27 +897,64 @@ class ArraySolutions {
 
         // return result;
 
-        // Better O(n^2) time & O(n) + O(2k) where k is size of triplet(used twice in set & result)
-        // TC would have been O(n^2 log m) when used a Treeset where m is current size of set
+        // Better O(n^2) time & O(n) + O(2k) where k is size of triplet(used twice in
+        // set & result)
+        // TC would have been O(n^2 log m) when used a Treeset where m is current size
+        // of set
 
-        Set<List<Integer>> set = new HashSet<>();
-        Set<Integer> tempHash = new HashSet<>();
-        int k;
+        // Set<List<Integer>> set = new HashSet<>();
+        // Set<Integer> tempHash = new HashSet<>();
+        // int k;
 
-        for (int i = 0; i < nums.length - 1; i++) {
-            tempHash.clear();
-            for (int j = i + 1; j < nums.length; j++) {
-                k = -(nums[i] + nums[j]);
-                if (tempHash.contains(k)) {
-                    List<Integer> triplet = new ArrayList<>(Arrays.asList(nums[i], nums[j], k));
-                    Collections.sort(triplet);
-                    set.add(triplet);
+        // for (int i = 0; i < nums.length - 1; i++) {
+        // tempHash.clear();
+        // for (int j = i + 1; j < nums.length; j++) {
+        // k = -(nums[i] + nums[j]);
+        // if (tempHash.contains(k)) {
+        // List<Integer> triplet = new ArrayList<>(Arrays.asList(nums[i], nums[j], k));
+        // Collections.sort(triplet);
+        // set.add(triplet);
+        // }
+        // tempHash.add(nums[j]);
+        // }
+        // }
+
+        // List<List<Integer>> result = new ArrayList<>(set);
+
+        // return result;
+
+        // Optimal O(n log n + n^2) time & O(k) space where k is number of triplets
+
+        List<List<Integer>> result = new ArrayList<>();
+        int left, right, sum;
+        Arrays.sort(nums);
+
+        for (int idx = 0; idx < nums.length; idx++) {
+            if (idx > 0 && nums[idx] == nums[idx - 1])
+                continue;
+
+            left = idx + 1;
+            right = nums.length - 1;
+
+            while (left < right) {
+                sum = nums[idx] + nums[left] + nums[right];
+
+                if (sum < 0) {
+                    left++;
+                } else if (sum > 0) {
+                    right--;
+                } else {
+                    result.add(new ArrayList<>(Arrays.asList(nums[idx], nums[left], nums[right])));
+                    left++;
+                    right--;
+
+                    while (left < right && nums[left - 1] == nums[left])
+                        left++;
+                    while (left < right && nums[right + 1] == nums[right])
+                        right--;
                 }
-                tempHash.add(nums[j]);
             }
         }
-
-        List<List<Integer>> result = new ArrayList<>(set);
 
         return result;
     }
