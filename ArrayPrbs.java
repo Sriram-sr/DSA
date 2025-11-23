@@ -958,11 +958,79 @@ class ArraySolutions {
 
         return result;
     }
+
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        // Better O(n^3) time & O(n) + O(2k) where k is unique quad
+
+        // Set<List<Integer>> set = new HashSet<>();
+        // Set<Long> hashSet = new HashSet<>();
+        // long threeSum;
+        // long fourth;
+
+        // for (int i = 0; i < nums.length; i++) {
+        // for (int j = i + 1; j < nums.length; j++) {
+        // hashSet.clear();
+        // for (int k = j + 1; k < nums.length; k++) {
+        // threeSum = (long) nums[i] + nums[j];
+        // threeSum += nums[k];
+        // fourth = target - threeSum;
+        // if (hashSet.contains(fourth)) {
+        // List<Integer> tempList = Arrays.asList(nums[i], nums[j], nums[k], (int)
+        // fourth);
+        // Collections.sort(tempList);
+        // set.add(tempList);
+        // }
+        // hashSet.add((long) nums[k]);
+        // }
+        // }
+        // }
+
+        // return new ArrayList<>(set);
+
+        // Optimal O(n log n + n ^ 3) time && O(k) where k is number of unique quad
+
+        List<List<Integer>> result = new ArrayList<>();
+        int left, right, sum;
+        Arrays.sort(nums);
+
+        for (int i = 0; i < nums.length; i++) {
+            if (i > 0 && nums[i - 1] == nums[i])
+                continue;
+
+            for (int j = i + 1; j < nums.length; j++) {
+                if (j != i + 1 && nums[j - 1] == nums[j])
+                    continue;
+
+                left = j + 1;
+                right = nums.length - 1;
+
+                while (left < right) {
+                    sum = nums[i] + nums[j] + nums[left] + nums[right];
+                    if (sum < target) {
+                        left++;
+                    } else if (sum > target) {
+                        right--;
+                    } else {
+                        result.add(new ArrayList<>(Arrays.asList(nums[i], nums[j], nums[left], nums[right])));
+                        left++;
+                        right--;
+
+                        while (left < right && nums[left - 1] == nums[left])
+                            left++;
+                        while (left < right && nums[right + 1] == nums[right])
+                            right--;
+                    }
+                }
+            }
+        }
+
+        return result;
+    }
 }
 
 public class ArrayPrbs {
     public static void main(String[] args) {
         ArraySolutions solution = new ArraySolutions();
-        System.out.println(solution.threeSum(new int[] { 2, -2, 0, 3, -3, 5 }));
+        System.out.println(solution.fourSum(new int[] { 1, 1, 3, 4, -3 }, 5));
     }
 }
