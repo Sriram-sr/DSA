@@ -874,6 +874,7 @@ class ArraySolutions {
         }
     }
 
+    // 3 Sum
     public List<List<Integer>> threeSum(int[] nums) {
         // Set<List<Integer>> set = new HashSet<>();
         // int n = nums.length;
@@ -959,6 +960,7 @@ class ArraySolutions {
         return result;
     }
 
+    // 4 Sum
     public List<List<Integer>> fourSum(int[] nums, int target) {
         // Better O(n^3) time & O(n) + O(2k) where k is unique quad
 
@@ -1026,11 +1028,84 @@ class ArraySolutions {
 
         return result;
     }
+
+    // Sort an array of 0's 1's and 2's
+    public void sortZeroOneTwo(int[] nums) {
+        // Brute O(n ^ 2) time & O(1) space
+
+        // int minIdx, temp;
+
+        // for (int idx = 0; idx < nums.length; idx++) {
+        // minIdx = idx;
+        // for (int subIdx = idx + 1; subIdx < nums.length; subIdx++) {
+        // if (nums[subIdx] < nums[minIdx])
+        // minIdx = subIdx;
+        // }
+        // if (minIdx != idx) {
+        // temp = nums[minIdx];
+        // nums[minIdx] = nums[idx];
+        // nums[idx] = temp;
+        // }
+        // }
+
+        // System.out.println(Arrays.toString(nums));
+
+        // Better O(2n)
+
+        // int cntZero = 0;
+        // int cntOne = 0;
+        // int cntTwo = 0;
+
+        // for (int idx = 0; idx < nums.length; idx++) {
+        // if (nums[idx] == 0)
+        // cntZero++;
+        // else if (nums[idx] == 1)
+        // cntOne++;
+        // else
+        // cntTwo++;
+        // }
+
+        // for (int idx = 0; idx < cntZero; idx++)
+        // nums[idx] = 0;
+        // for (int idx = cntZero; idx < cntZero + cntOne; idx++)
+        // nums[idx] = 1;
+        // for (int idx = cntZero + cntOne; idx < nums.length; idx++)
+        // nums[idx] = 2;
+
+        // System.out.println(Arrays.toString(nums));
+
+        // Optimal O(n) time & O(1) space
+        // Dutch National Flag Algorithm
+
+        int low = 0;
+        int mid = 0;
+        int high = nums.length - 1;
+        int temp;
+
+        while (mid <= high) {
+            if (nums[mid] == 0) {
+                temp = nums[mid];
+                nums[mid] = nums[low];
+                nums[low] = temp;
+                low++;
+                mid++;
+            } else if (nums[mid] == 1) {
+                mid++;
+            } else {
+                temp = nums[high];
+                nums[high] = nums[mid];
+                nums[mid] = temp;
+                high--;
+            }
+        }
+
+        System.out.println(Arrays.toString(nums));
+    }
 }
 
 public class ArrayPrbs {
     public static void main(String[] args) {
         ArraySolutions solution = new ArraySolutions();
-        System.out.println(solution.fourSum(new int[] { 1, 1, 3, 4, -3 }, 5));
+        solution.sortZeroOneTwo(new int[] { 2, 0, 1, 2, 0, 1, 2, 2, 0, 1, 1, 1, 0, 2 });
     }
 }
