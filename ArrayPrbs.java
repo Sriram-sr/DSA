@@ -1101,11 +1101,71 @@ class ArraySolutions {
 
         System.out.println(Arrays.toString(nums));
     }
+
+    // Kadane's Algorithm
+    public int maxSubArray(int[] nums) {
+        // Brute O(n^2) time & O(1) space
+
+        // if (nums.length == 1)
+        // return nums[0];
+
+        // int maxSum = Integer.MIN_VALUE, count;
+        // int n = nums.length;
+
+        // for (int idx = 0; idx < n; idx++) {
+        // count = 0;
+        // for (int subIdx = idx; subIdx < n; subIdx++) {
+        // count += nums[subIdx];
+        // if (count > maxSum)
+        // maxSum = count;
+        // }
+        // }
+
+        // return maxSum;
+
+        // Optimal O(n) time & O(1) space
+
+        // int maxSum = Integer.MIN_VALUE;
+        // int tempSum = 0;
+
+        // for (int idx = 0; idx < nums.length; idx++) {
+        // if (tempSum < 0)
+        // tempSum = 0;
+        // tempSum += nums[idx];
+        // if (tempSum > maxSum)
+        // maxSum = tempSum;
+        // }
+
+        // return maxSum;
+
+        // Find indexes O(n) time & O(1) space
+
+        int maxSum = Integer.MIN_VALUE;
+        int tempSum = 0;
+        int tempStart = 0;
+        int subStart = -1, subEnd = -1;
+
+        for (int idx = 0; idx < nums.length; idx++) {
+            if (tempSum == 0)
+                tempStart = idx;
+            if (tempSum < 0)
+                tempSum = 0;
+            tempSum += nums[idx];
+            if (tempSum > maxSum) {
+                maxSum = tempSum;
+                subStart = tempStart;
+                subEnd = idx;
+            }
+        }
+
+        System.out.println(subStart + " " + subEnd);
+        return maxSum;
+    }
 }
 
 public class ArrayPrbs {
     public static void main(String[] args) {
         ArraySolutions solution = new ArraySolutions();
-        solution.sortZeroOneTwo(new int[] { 2, 0, 1, 2, 0, 1, 2, 2, 0, 1, 1, 1, 0, 2 });
+        System.out.println(solution.maxSubArray(new int[] { -1, 2, 3, -1, 2, -6, 5 }));
     }
 }
