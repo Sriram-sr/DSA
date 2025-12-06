@@ -1161,11 +1161,64 @@ class ArraySolutions {
         System.out.println(subStart + " " + subEnd);
         return maxSum;
     }
+
+    // Next Permutation
+    public void nextPermutation(int[] nums) {
+        // Optimal O(3n) time & O(1) space
+
+        int n = nums.length, temp;
+        int breakIdx = -1;
+
+        // Find dip point from the right
+        for (int idx = n - 2; idx >= 0; idx--) {
+            if (nums[idx] < nums[idx + 1]) {
+                breakIdx = idx;
+                break;
+            }
+        }
+
+        if (breakIdx == -1) {
+            reverse(nums, 0, n - 1);
+            return;
+        }
+
+        // Swap the least value from rest which is greater than dip point element
+        for (int idx = n - 1; idx > breakIdx; idx--) {
+            if (nums[idx] > nums[breakIdx]) {
+                temp = nums[breakIdx];
+                nums[breakIdx] = nums[idx];
+                nums[idx] = temp;
+                break;
+            }
+        }
+
+        reverse(nums, breakIdx + 1, n - 1);
+
+        System.out.println(Arrays.toString(nums));
+    }
+
+    // Best time to buy and sell stock
+    public int stockBuySell(int[] arr, int n) {
+        int stockPrice = arr[0];
+        int profit = 0;
+
+        for (int idx = 1; idx < n; idx++) {
+            if (arr[idx] < stockPrice) {
+                stockPrice = arr[idx];
+            } else {
+                if (arr[idx] - stockPrice > profit) {
+                    profit = arr[idx] - stockPrice;
+                }
+            }
+        }
+
+        return profit;
+    }
 }
 
 public class ArrayPrbs {
     public static void main(String[] args) {
         ArraySolutions solution = new ArraySolutions();
-        System.out.println(solution.maxSubArray(new int[] { -1, 2, 3, -1, 2, -6, 5 }));
+        System.out.println(solution.stockBuySell(new int[] { 3, 8, 1, 4, 6, 2 }, 6));
     }
 }
