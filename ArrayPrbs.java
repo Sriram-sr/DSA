@@ -1214,11 +1214,35 @@ class ArraySolutions {
 
         return profit;
     }
+
+    // Longest Consecutive Sequence in an Array
+    public int longestConsecutive(int[] nums) {
+        Arrays.sort(nums);
+
+        int maxSeq = 1;
+        int tempSeq = 0;
+
+        for (int idx = 0; idx < nums.length - 1; idx++) {
+            if (tempSeq == 0)
+                tempSeq = 1;
+
+            if (nums[idx + 1] == nums[idx] + 1) {
+                tempSeq++;
+                maxSeq = Math.max(maxSeq, tempSeq);
+            } else if (nums[idx + 1] == nums[idx]) {
+                continue;
+            } else {
+                tempSeq = 0;
+            }
+        }
+
+        return maxSeq;
+    }
 }
 
 public class ArrayPrbs {
     public static void main(String[] args) {
         ArraySolutions solution = new ArraySolutions();
-        System.out.println(solution.stockBuySell(new int[] { 3, 8, 1, 4, 6, 2 }, 6));
+        System.out.println(solution.longestConsecutive(new int[] { -7, 13, 4 }));
     }
 }
