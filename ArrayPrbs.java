@@ -1199,6 +1199,8 @@ class ArraySolutions {
 
     // Best time to buy and sell stock
     public int stockBuySell(int[] arr, int n) {
+        // Optimal O(n) time & O(1) space
+
         int stockPrice = arr[0];
         int profit = 0;
 
@@ -1217,22 +1219,47 @@ class ArraySolutions {
 
     // Longest Consecutive Sequence in an Array
     public int longestConsecutive(int[] nums) {
-        Arrays.sort(nums);
+        // Better O(n + n log n) + O(1)
 
-        int maxSeq = 1;
-        int tempSeq = 0;
+        // Arrays.sort(nums);
 
-        for (int idx = 0; idx < nums.length - 1; idx++) {
-            if (tempSeq == 0)
-                tempSeq = 1;
+        // int maxSeq = 1;
+        // int tempSeq = 0;
 
-            if (nums[idx + 1] == nums[idx] + 1) {
-                tempSeq++;
-                maxSeq = Math.max(maxSeq, tempSeq);
-            } else if (nums[idx + 1] == nums[idx]) {
-                continue;
-            } else {
-                tempSeq = 0;
+        // for (int idx = 0; idx < nums.length - 1; idx++) {
+        //     if (tempSeq == 0)
+        //         tempSeq = 1;
+
+        //     if (nums[idx + 1] == nums[idx] + 1) {
+        //         tempSeq++;
+        //         maxSeq = Math.max(maxSeq, tempSeq);
+        //     } else if (nums[idx + 1] == nums[idx]) {
+        //         continue;
+        //     } else {
+        //         tempSeq = 0;
+        //     }
+        // }
+
+        // return maxSeq;
+
+        // Optimal O(n + 2n) => O(3n) + O(n) space
+
+        Set<Integer> set = new HashSet<>();
+
+        for (int ele: nums) {
+            set.add(ele);
+        }
+
+        int maxSeq = 0, count, seqEle;
+        for (int ele : set) {
+            if (!set.contains(ele - 1)) {
+                count = 1;
+                seqEle = ele;
+                while (set.contains(seqEle + 1)) {
+                    count++;
+                    seqEle++;
+                }
+                maxSeq = Math.max(maxSeq, count);
             }
         }
 
