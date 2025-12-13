@@ -9,6 +9,73 @@ import java.util.TreeSet;
 import java.util.Collections;
 
 class ArraySolutions {
+    // Sum of Array Elements
+    public  int sum(int arr[], int n) {
+      int elementsSum = 0;
+
+      for (int idx = 0; idx < n; idx++) {
+        elementsSum += arr[idx];
+      }
+
+      return elementsSum;
+    }
+
+    // Count Odd Numbers in an Array
+    public int countOdd(int[] arr, int n) {
+       int count = 0;
+
+       for (int idx = 0; idx < n; idx++) {
+        if (arr[idx] % 2 == 1) {
+            count += 1;
+        }
+       }
+
+       return count;
+    }
+
+    // Check if Array is Sorted
+    public boolean arraySortedOrNot(int[] arr, int n) {
+        for (int idx = 0; idx <= n - 2; idx++) {
+            if (!(arr[idx] <= arr[idx + 1])) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // Reverse an array
+    public int[] reverseArray(int[] arr, int n) {
+        // Brute
+
+        // int[] tempArray = new int[n];
+
+        // for (int idx = n - 1; idx >= 0; idx--) {
+        // tempArray[n - 1 - idx] = arr[idx];
+        // }
+
+        // for (int idx = 0; idx < n; idx++) {
+        // arr[idx] = tempArray[idx];
+        // }
+
+        // return arr;
+
+        // Optimal
+
+        int left = 0;
+        int right = n - 1;
+        int temp;
+
+        while (right > left) {
+            temp = arr[right];
+            arr[right] = arr[left];
+            arr[left] = temp;
+            left++;
+            right--;
+        }
+
+        return arr;
+    }
+
     // Linear Search
     public int linearSearch(int nums[], int target) {
         for (int idx = 0; idx < nums.length; idx++) {
