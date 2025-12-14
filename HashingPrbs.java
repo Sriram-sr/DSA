@@ -18,13 +18,45 @@ public class HashingPrbs {
     }
 
     public static int mostFrequentElement(int[] nums) {
+        // Brute O(n + n^2) & O(max)
+
+        // int max = nums[0];
+        // for (int idx = 1; idx < nums.length; idx++) {
+        // if (nums[idx] > max)
+        // max = nums[idx];
+        // }
+
+        // int[] visited = new int[max + 1];
+        // int maxFreq = -1, maxEle = 0;
+        // int count;
+        // for (int idx = 0; idx < nums.length; idx++) {
+        // if (visited[nums[idx]] != 1) {
+        // count = 0;
+        // for (int subIdx = 0; subIdx < nums.length; subIdx++) {
+        // if (nums[subIdx] == nums[idx]) {
+        // count++;
+        // }
+        // }
+        // if (count > maxFreq) {
+        // maxEle = nums[idx];
+        // maxFreq = count;
+        // } else if (count == maxFreq && nums[idx] < maxEle) {
+        // maxEle = nums[idx];
+        // }
+        // visited[nums[idx]] = 1;
+        // }
+        // }
+
+        // return maxEle;
+
+        // Optimal
+
         Object[] HashData = HashingPrbs.calculateMaxAndHash(nums);
         int max = (int) HashData[0];
         int[] hash = (int[]) HashData[1];
         int maxFreq = 0, maxEle = -1;
         for (int idx = 0; idx <= max; idx++) {
-
-            if (hash[idx] > maxFreq) {
+            if (hash[idx] != 0 && hash[idx] > maxFreq) {
                 maxFreq = hash[idx];
                 maxEle = idx;
             }
