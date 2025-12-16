@@ -80,11 +80,34 @@ class WorkoutSolutions {
 
         return minFreq + maxFreq;
     }
+
+    public String largeOddNum(String s) {
+        int n = s.length();
+        int lastIdx = -1, firstIdx = -1;
+        for (int idx = n - 1; idx >= 0; idx--) {
+            if ((s.charAt(idx) - '0') % 2 != 0) {
+                lastIdx = idx;
+                break;
+            }
+        }
+
+        if (lastIdx == -1)
+            return "";
+
+        for (int idx = 0; idx < n; idx++) {
+            if (s.charAt(idx) - '0' != 0) {
+                firstIdx = idx;
+                break;
+            }
+        }
+
+        return s.substring(firstIdx, lastIdx + 1);
+    }
 }
 
 public class Workout {
     public static void main(String[] args) {
         WorkoutSolutions solutions = new WorkoutSolutions();
-        System.out.println(solutions.sumHighestAndLowestFrequency(new int[] { 10, 9, 7, 7, 8, 8, 8 }));
+        System.out.println(solutions.largeOddNum("214638"));
     }
 }
