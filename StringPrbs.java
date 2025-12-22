@@ -13,6 +13,51 @@ class Pair {
 }
 
 class StringSolutions {
+    // Longest Common Prefix
+    public String longestCommonPrefix(String[] str) {
+        /**
+         * String sample = str[0], temp;
+         * String prefix = "";
+         * for (int wordIdx = 1; wordIdx < str.length; wordIdx++) {
+         * temp = "";
+         * for (int charIdx = 0; charIdx < Math.min(sample.length(),
+         * str[wordIdx].length()); charIdx++) {
+         * if (str[wordIdx].charAt(charIdx) == sample.charAt(charIdx)) {
+         * temp += sample.charAt(charIdx);
+         * } else {
+         * break;
+         * }
+         * }
+         * if (temp == "") {
+         * prefix = "";
+         * break;
+         * }
+         * if (prefix.length() == 0 || temp.length() < prefix.length()) {
+         * prefix = temp;
+         * }
+         * }
+         * 
+         * return prefix;
+         */
+
+        // Optimal O(M * N log N) time & O(M) space
+
+        Arrays.sort(str);
+        String first = str[0];
+        String last = str[str.length - 1];
+
+        StringBuilder prefix = new StringBuilder();
+        for (int idx = 0; idx < Math.min(first.length(), last.length()); idx++) {
+            if (first.charAt(idx) != last.charAt(idx)) {
+                break;
+            } else {
+                prefix.append(first.charAt(idx));
+            }
+        }
+
+        return prefix.toString();
+    }
+
     // Reverse String
     public void reverseString(List<Character> s) {
         int left = 0;
