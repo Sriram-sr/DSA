@@ -132,12 +132,13 @@ class StringSolutions {
 
     // Isomorphic Strings
     public boolean isomorphicString(String s, String t) {
+        // Optimal O(N) time & O(2 * 256) space
+
         int[] mapS = new int[256], mapT = new int[256];
 
         for (int idx = 0; idx < s.length(); idx++) {
             if (mapS[s.charAt(idx)] != mapT[t.charAt(idx)])
                 return false;
-
             mapS[s.charAt(idx)] = idx + 1;
             mapT[t.charAt(idx)] = idx + 1;
         }
@@ -146,7 +147,7 @@ class StringSolutions {
     }
 
     // Rotate String
-    public boolean rortateString(String s, String goal) {
+    public boolean rotateString(String s, String goal) {
         // Brute
 
         if (s.length() != goal.length()) {
@@ -175,6 +176,7 @@ class StringSolutions {
 
     // Valid Anagram
     public boolean isAnagram(String s, String t) {
+        // Optimal O(N) time & 2 * O(26) space
         if (s.length() != t.length()) {
             return false;
         }
@@ -196,6 +198,9 @@ class StringSolutions {
 
     // Sort Characters By Frequency
     public List<Character> sortByFrequency(String s) {
+        // Optimal O(26) + O(n) + O(26 log 26) + O(26) time & O(26) + O(26)
+        // => O(n) time and O(1) space
+
         Pair[] hash = new Pair[26];
 
         for (int idx = 0; idx < hash.length; idx++) {
@@ -227,9 +232,6 @@ class StringSolutions {
 public class StringPrbs {
     public static void main(String[] args) {
         StringSolutions solution = new StringSolutions();
-        // solution.reverseString(new ArrayList<>(Arrays.asList('h', 'e', 'l', 'l',
-        // 'o')));
-        // System.out.println(solution.isomorphicString("ab", "aa"));
-        System.out.println(solution.sortByFrequency("bbccddaaa"));
+        System.out.println(solution.isomorphicString("paper", "title"));
     }
 }

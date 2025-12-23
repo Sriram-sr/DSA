@@ -1,3 +1,17 @@
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+class Pair {
+    int freq;
+    char ele;
+
+    Pair(int freq, char ele) {
+        this.freq = freq;
+        this.ele = ele;
+    }
+}
+
 class WorkoutSolutions {
     public int mostFrequentElement(int[] nums) {
         // Brute
@@ -103,11 +117,63 @@ class WorkoutSolutions {
 
         return s.substring(firstIdx, lastIdx + 1);
     }
+
+    public boolean rotateString(String s, String goal) {
+        String concatenatedStr = s + s;
+
+        return concatenatedStr.contains(goal);
+    }
+
+    public boolean isAnagram(String s, String t) {
+        if (s.length() != t.length())
+            return false;
+
+        int[] hash = new int[26];
+
+        for (int idx = 0; idx < s.length(); idx++) {
+            hash[s.charAt(idx) - 'a'] = 1;
+        }
+
+        for (int idx = 0; idx < t.length(); idx++) {
+            if (hash[t.charAt(idx) - 'a'] != 1)
+                return false;
+        }
+
+        return true;
+    }
+
+    public List<Character> frequencySort(String s) {
+        Pair[] hash = new Pair[26];
+
+        for (int idx = 0; idx < hash.length; idx++) {
+            hash[idx] = new Pair(0, (char) (idx + 'a'));
+        }
+
+        for (int idx = 0; idx < s.length(); idx++) {
+            hash[s.charAt(idx) - 'a'].freq++;
+        }
+
+        Arrays.sort(hash, (p1, p2) -> {
+            if (p1.freq != p2.freq)
+                return p2.freq - p1.freq;
+            return p1.ele - p2.ele;
+        });
+
+        List<Character> ans = new ArrayList<>();
+
+        for (int idx = 0; idx < hash.length; idx++) {
+            if (hash[idx].freq == 0)
+                break;
+            ans.add(hash[idx].ele);
+        }
+
+        return ans;
+    }
 }
 
 public class Workout {
     public static void main(String[] args) {
         WorkoutSolutions solutions = new WorkoutSolutions();
-        System.out.println(solutions.largeOddNum("214638"));
+        System.out.println(solutions.frequencySort("bbccddaaa"));
     }
 }
