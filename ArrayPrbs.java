@@ -1,36 +1,32 @@
 import java.util.Arrays;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.HashSet;
-import java.util.TreeSet;
-import java.util.Collections;
 
 class ArraySolutions {
     // Sum of Array Elements
-    public  int sum(int arr[], int n) {
-      int elementsSum = 0;
+    public int sum(int arr[], int n) {
+        int elementsSum = 0;
 
-      for (int idx = 0; idx < n; idx++) {
-        elementsSum += arr[idx];
-      }
+        for (int idx = 0; idx < n; idx++) {
+            elementsSum += arr[idx];
+        }
 
-      return elementsSum;
+        return elementsSum;
     }
 
     // Count Odd Numbers in an Array
     public int countOdd(int[] arr, int n) {
-       int count = 0;
+        int count = 0;
 
-       for (int idx = 0; idx < n; idx++) {
-        if (arr[idx] % 2 == 1) {
-            count += 1;
+        for (int idx = 0; idx < n; idx++) {
+            if (arr[idx] % 2 == 1) {
+                count += 1;
+            }
         }
-       }
 
-       return count;
+        return count;
     }
 
     // Check if Array is Sorted
@@ -175,6 +171,8 @@ class ArraySolutions {
 
     // Maximum Consecutive Ones
     public int findMaxConsecutiveOnes(int[] nums) {
+        // Brute O(n^2) & O(1) space
+
         int maxFreq = 0, count;
 
         for (int idx = 0; idx < nums.length; idx++) {
@@ -191,6 +189,9 @@ class ArraySolutions {
         }
 
         return maxFreq;
+
+        // Optimal O(n) & O(1) space
+
         // int maxFreq = 0, tempFreq = 0;
 
         // for (int ele : nums) {
@@ -1294,17 +1295,17 @@ class ArraySolutions {
         // int tempSeq = 0;
 
         // for (int idx = 0; idx < nums.length - 1; idx++) {
-        //     if (tempSeq == 0)
-        //         tempSeq = 1;
+        // if (tempSeq == 0)
+        // tempSeq = 1;
 
-        //     if (nums[idx + 1] == nums[idx] + 1) {
-        //         tempSeq++;
-        //         maxSeq = Math.max(maxSeq, tempSeq);
-        //     } else if (nums[idx + 1] == nums[idx]) {
-        //         continue;
-        //     } else {
-        //         tempSeq = 0;
-        //     }
+        // if (nums[idx + 1] == nums[idx] + 1) {
+        // tempSeq++;
+        // maxSeq = Math.max(maxSeq, tempSeq);
+        // } else if (nums[idx + 1] == nums[idx]) {
+        // continue;
+        // } else {
+        // tempSeq = 0;
+        // }
         // }
 
         // return maxSeq;
@@ -1313,7 +1314,7 @@ class ArraySolutions {
 
         Set<Integer> set = new HashSet<>();
 
-        for (int ele: nums) {
+        for (int ele : nums) {
             set.add(ele);
         }
 
@@ -1332,11 +1333,121 @@ class ArraySolutions {
 
         return maxSeq;
     }
+
+    public void markRow(int[][] matrix, int row, int cols) {
+        for (int col = 0; col < cols; col++) {
+            if (matrix[row][col] != 0)
+                matrix[row][col] = -1;
+        }
+    }
+
+    public void markCol(int[][] matrix, int col, int rows) {
+        for (int row = 0; row < rows; row++) {
+            if (matrix[row][col] != 0)
+                matrix[row][col] = -1;
+        }
+    }
+
+    // Set Matrix Zeroes
+    public void setZeroes(int[][] matrix) {
+        // Brute O((m x n) x (m + n)) + O(m x n) time & O(1) space
+
+        // int m = matrix.length;
+        // int n = matrix[0].length;
+
+        // for (int row = 0; row < m; row++) {
+        // for (int col = 0; col < n; col++) {
+        // if (matrix[row][col] == 0) {
+        // markRow(matrix, row, n);
+        // markCol(matrix, col, m);
+        // }
+        // }
+        // }
+
+        // for (int row = 0; row < m; row++) {
+        // for (int col = 0; col < n; col++) {
+        // if (matrix[row][col] == -1) {
+        // matrix[row][col] = 0;
+        // }
+        // }
+        // }
+
+        // Brute 2: O(2 x m x n) time & O(m + n) space
+
+        // int m = matrix.length;
+        // int n = matrix[0].length;
+        // boolean[] rows = new boolean[m];
+        // boolean[] columns = new boolean[n];
+
+        // for (int row = 0; row < m; row++) {
+        // for (int col = 0; col < n; col++) {
+        // if (matrix[row][col] == 0) {
+        // rows[row] = true;
+        // columns[col] = true;
+        // }
+        // }
+        // }
+
+        // for (int row = 0; row < rows.length; row++) {
+        // for (int col = 0; col < columns.length; col++) {
+        // if (rows[row] || columns[col])
+        // matrix[row][col] = 0;
+        // }
+        // }
+
+        // Optimal O(2 x m x n) time & O(1) space
+
+        // Considering 1st row & 1st column for tracking rows/colums to be marked 0s
+        int n = matrix.length;
+        int m = matrix[0].length;
+        int col0 = 1;
+
+        for (int row = 0; row < n; row++) {
+            for (int col = 0; col < m; col++) {
+                if (matrix[row][col] == 0) {
+                    // For marking columns 0
+                    matrix[row][0] = 0;
+                    if (col != 0) {
+                        // For marking rows 0
+                        matrix[0][col] = 0;
+                    } else {
+                        // 1st row and column colide at (0,0) pos
+                        col0 = 0;
+                    }
+                }
+            }
+        }
+
+        // Changing 1s to 0's excluding tracking rows and columns
+        for (int row = 1; row < n; row++) {
+            for (int col = 1; col < m; col++) {
+                if (matrix[row][col] != 0) {
+                    if (matrix[row][0] == 0 || matrix[0][col] == 0)
+                        matrix[row][col] = 0;
+                }
+            }
+        }
+
+        // 1st row used for column marking
+        if (matrix[0][0] == 0) {
+            for (int col = 0; col < m; col++) {
+                matrix[0][col] = 0;
+            }
+        }
+        // 1st column used for row marking
+        if (col0 == 0) {
+            for (int row = 0; row < n; row++) {
+                matrix[row][0] = 0;
+            }
+        }
+
+        System.out.println(Arrays.deepToString(matrix));
+    }
 }
 
 public class ArrayPrbs {
     public static void main(String[] args) {
         ArraySolutions solution = new ArraySolutions();
-        System.out.println(solution.longestConsecutive(new int[] { -7, 13, 4 }));
+        solution.setZeroes(new int[][] { { 0, 1, 2, 0 }, { 3, 4, 5, 2 }, { 1, 3, 1, 5 } });
     }
 }
