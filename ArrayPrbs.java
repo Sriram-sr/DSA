@@ -1443,11 +1443,30 @@ class ArraySolutions {
 
         System.out.println(Arrays.deepToString(matrix));
     }
+
+    public int subarraySum(int[] nums, int k) {
+        // Brute O(n^2)
+
+        int count = 0;
+        int sum;
+
+        for (int idx = 0; idx < nums.length; idx++) {
+            sum = 0;
+            for (int subIdx = idx; subIdx < nums.length; subIdx++) {
+                sum += nums[subIdx];
+                if (sum == k)
+                    count += 1;
+            }
+        }
+
+        return count;
+    }
 }
 
 public class ArrayPrbs {
     public static void main(String[] args) {
         ArraySolutions solution = new ArraySolutions();
-        solution.setZeroes(new int[][] { { 0, 1, 2, 0 }, { 3, 4, 5, 2 }, { 1, 3, 1, 5 } });
+        System.out.println(solution.subarraySum(new int[] { 6, 8, 4, -6, -4, 6, -7, 0, -8, -1, -8, -9, 9, 4, 0, 7, 9, 9,
+                7, 2, 8, -1, 9, -4, 2, 1, -7, 6, 2 }, -2));
     }
 }
