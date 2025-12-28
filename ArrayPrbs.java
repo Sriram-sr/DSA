@@ -1,4 +1,6 @@
 import java.util.Arrays;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -1486,12 +1488,79 @@ class ArraySolutions {
 
         return count;
     }
+
+    public int thirdLargest(int arr[]) {
+        if (arr.length < 3) {
+            return -1;
+        }
+
+        int max = Integer.MIN_VALUE;
+        int smax = Integer.MIN_VALUE;
+        int tmax = Integer.MIN_VALUE;
+
+        for (int idx = 0; idx < arr.length; idx++) {
+            if (arr[idx] > max) {
+                tmax = smax;
+                smax = max;
+                max = arr[idx];
+            } else if (arr[idx] > smax) {
+                tmax = smax;
+                smax = arr[idx];
+            } else if (arr[idx] > tmax) {
+                tmax = arr[idx];
+            }
+        }
+
+        return tmax;
+    }
+
+    public List<Integer> majorityElementTwo(int[] nums) {
+        // Brute O(n) time & O(n) space
+
+        Map<Integer, Integer> map = new HashMap<>();
+        List<Integer> result = new ArrayList<>();
+
+        for (int ele : nums) {
+            map.put(ele, map.getOrDefault(ele, 0) + 1);
+            if (map.get(ele) > nums.length / 3) {
+                if (result.size() == 0 || result.get(0) != ele) {
+                    result.add(ele);
+                }
+            }
+            if (result.size() == 2) {
+                break;
+            }
+        }
+
+        return result;
+
+        // Brute O(n^2) time & O(1) space
+
+        // List<Integer> result = new ArrayList<>();
+        // int count;
+
+        // for (int ele : nums) {
+        // if (result.size() == 0 || result.get(0) != ele) {
+        // count = 0;
+        // for (int idx = 0; idx < nums.length; idx++) {
+        // if (nums[idx] == ele)
+        // count++;
+        // }
+        // if (count > nums.length / 3)
+        // result.add(ele);
+        // }
+        // if (result.size() == 2) {
+        // break;
+        // }
+        // }
+
+        // return result;
+    }
 }
 
 public class ArrayPrbs {
     public static void main(String[] args) {
         ArraySolutions solution = new ArraySolutions();
-        System.out
-                .println(solution.removeDuplicates(new int[] { 99999999, 100000000, 100000000, 100000001 }));
+        System.out.println(solution.majorityElementTwo(new int[] { 5, 5 }));
     }
 }
