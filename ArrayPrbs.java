@@ -1517,22 +1517,22 @@ class ArraySolutions {
     public List<Integer> majorityElementTwo(int[] nums) {
         // Brute O(n) time & O(n) space
 
-        Map<Integer, Integer> map = new HashMap<>();
-        List<Integer> result = new ArrayList<>();
+        // Map<Integer, Integer> map = new HashMap<>();
+        // List<Integer> result = new ArrayList<>();
 
-        for (int ele : nums) {
-            map.put(ele, map.getOrDefault(ele, 0) + 1);
-            if (map.get(ele) > nums.length / 3) {
-                if (result.size() == 0 || result.get(0) != ele) {
-                    result.add(ele);
-                }
-            }
-            if (result.size() == 2) {
-                break;
-            }
-        }
+        // for (int ele : nums) {
+        // map.put(ele, map.getOrDefault(ele, 0) + 1);
+        // if (map.get(ele) > nums.length / 3) {
+        // if (result.size() == 0 || result.get(0) != ele) {
+        // result.add(ele);
+        // }
+        // }
+        // if (result.size() == 2) {
+        // break;
+        // }
+        // }
 
-        return result;
+        // return result;
 
         // Brute O(n^2) time & O(1) space
 
@@ -1555,12 +1555,51 @@ class ArraySolutions {
         // }
 
         // return result;
+
+        // Optimal O(2n) time & O(1) space
+
+        int cnt1 = 0, cnt2 = 0;
+        int ele1 = Integer.MIN_VALUE, ele2 = Integer.MIN_VALUE;
+
+        for (int idx = 0; idx < nums.length; idx++) {
+            if (cnt1 == 0 && nums[idx] != ele2) {
+                ele1 = nums[idx];
+                cnt1 = 1;
+            } else if (cnt2 == 0 && nums[idx] != ele1) {
+                ele2 = nums[idx];
+                cnt2 = 1;
+            } else if (nums[idx] == ele1) {
+                cnt1++;
+            } else if (nums[idx] == ele2) {
+                cnt2++;
+            } else {
+                cnt1--;
+                cnt2--;
+            }
+        }
+
+        cnt1 = 0;
+        cnt2 = 0;
+        for (int num : nums) {
+            if (num == ele1)
+                cnt1++;
+            if (num == ele2)
+                cnt2++;
+        }
+
+        List<Integer> result = new ArrayList<>();
+        if (cnt1 > nums.length / 3)
+            result.add(ele1);
+        if (cnt2 > nums.length / 3)
+            result.add(ele2);
+
+        return result;
     }
 }
 
 public class ArrayPrbs {
     public static void main(String[] args) {
         ArraySolutions solution = new ArraySolutions();
-        System.out.println(solution.majorityElementTwo(new int[] { 5, 5 }));
+        System.out.println(solution.majorityElementTwo(new int[] { 1, 1, 1, 3, 3, 2, 2, 2 }));
     }
 }
