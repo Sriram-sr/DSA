@@ -2,6 +2,7 @@ import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.HashSet;
 
 class ArraySolutions {
@@ -308,15 +309,32 @@ class ArraySolutions {
 
         // Approach 2 O(n) & O(1) space
 
-        int uniquePtr = 0;
-        for (int repeatPtr = 1; repeatPtr < nums.length; repeatPtr++) {
-            if (nums[uniquePtr] != nums[repeatPtr]) {
-                nums[uniquePtr + 1] = nums[repeatPtr];
-                uniquePtr++;
-            }
+        // int uniquePtr = 0;
+        // for (int repeatPtr = 1; repeatPtr < nums.length; repeatPtr++) {
+        // if (nums[uniquePtr] != nums[repeatPtr]) {
+        // nums[uniquePtr + 1] = nums[repeatPtr];
+        // uniquePtr++;
+        // }
+        // }
+
+        // return uniquePtr + 1;
+
+        // Brute O(n log n) & O(n) space
+
+        Set<Integer> set = new TreeSet<>();
+
+        for (int idx = 0; idx < nums.length; idx++) {
+            set.add(nums[idx]);
         }
 
-        return uniquePtr + 1;
+        int uniquePtr = 0;
+        for (int ele : set) {
+            nums[uniquePtr] = ele;
+            uniquePtr++;
+        }
+
+        System.out.println(Arrays.toString(nums));
+        return set.size();
     }
 
     // Find missing number
@@ -349,7 +367,8 @@ class ArraySolutions {
 
     // Union of two sorted arrays
     public int[] unionArray(int[] nums1, int[] nums2) {
-        // Brute O((n + m) log(n + m)) + O(n + m) & O(n + m) space
+        // Brute O(n1 log n + n2 log n) + O(n1 + n2) & O(n1 + n2) space
+        // Where n1 is size of nums1 and n2 is size of nums2
 
         // Set<Integer> union = new TreeSet<>();
 
@@ -497,6 +516,12 @@ class ArraySolutions {
         // }
 
         // return -1;
+
+        // Better: O(n log n) time, O(1) space
+
+        // Arrays.sort(nums);
+
+        // return nums[nums.length/2];
 
         // Optimal: O(n) time, O(1) space
 
@@ -1466,7 +1491,7 @@ class ArraySolutions {
 public class ArrayPrbs {
     public static void main(String[] args) {
         ArraySolutions solution = new ArraySolutions();
-        System.out.println(solution.subarraySum(new int[] { 6, 8, 4, -6, -4, 6, -7, 0, -8, -1, -8, -9, 9, 4, 0, 7, 9, 9,
-                7, 2, 8, -1, 9, -4, 2, 1, -7, 6, 2 }, -2));
+        System.out
+                .println(solution.removeDuplicates(new int[] { 99999999, 100000000, 100000000, 100000001 }));
     }
 }

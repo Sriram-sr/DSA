@@ -169,11 +169,58 @@ class WorkoutSolutions {
 
         return ans;
     }
+
+    public void rotateArrayByOne(int[] nums) {
+        int first = nums[0];
+
+        for (int idx = 1; idx < nums.length; idx++) {
+            nums[idx - 1] = nums[idx];
+        }
+
+        nums[nums.length - 1] = first;
+        System.out.println(Arrays.toString(nums));
+    }
+
+    public void moveZeroes(int[] nums) {
+        int zPtr = -1;
+        int temp;
+
+        for (int idx = 0; idx < nums.length; idx++) {
+            if (nums[idx] == 0) {
+                zPtr = idx;
+                break;
+            }
+        }
+
+        for (int nPtr = zPtr + 1; nPtr < nums.length; nPtr++) {
+            if (nums[nPtr] != 0) {
+                temp = nums[nPtr];
+                nums[nPtr] = nums[zPtr];
+                nums[zPtr] = temp;
+                zPtr++;
+            }
+        }
+
+        System.out.println(Arrays.toString(nums));
+    }
+
+    public int removeDuplicates(int[] nums) {
+        int fPtr = 0;
+
+        for (int sPtr = 1; sPtr < nums.length; sPtr++) {
+            if (nums[sPtr] != nums[fPtr]) {
+                nums[fPtr + 1] = nums[sPtr];
+                fPtr++;
+            }
+        }
+
+        return fPtr + 1;
+    }
 }
 
 public class Workout {
     public static void main(String[] args) {
         WorkoutSolutions solutions = new WorkoutSolutions();
-        System.out.println(solutions.frequencySort("bbccddaaa"));
+        System.out.println(solutions.removeDuplicates(new int[] { -30, -30, 0, 0, 10, 20, 30, 30 }));
     }
 }
