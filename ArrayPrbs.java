@@ -1595,11 +1595,53 @@ class ArraySolutions {
 
         return result;
     }
+
+    public int[] findMissingRepeatingNumbers(int[] nums) {
+        // Brute O(n^2) time & O(1) space
+
+        int[] result = new int[2];
+        int count;
+
+        for (int ele = 1; ele <= nums.length; ele++) {
+            count = 0;
+            for (int idx = 0; idx < nums.length; idx++) {
+                if (ele == nums[idx])
+                    count++;
+            }
+            if (count == 2)
+                result[0] = ele;
+            else if (count == 0) {
+                result[1] = ele;
+            }
+            if (result[0] != 0 && result[1] != 0)
+                break;
+        }
+
+        return result;
+
+        // Better O(2n) time & O(n) space
+
+        // int[] hash = new int[nums.length + 1];
+        // for (int num : nums) {
+        // hash[num]++;
+        // }
+
+        // int[] result = new int[2];
+        // for (int idx = 1; idx < hash.length; idx++) {
+        // if (hash[idx] == 2)
+        // result[0] = idx;
+        // else if (hash[idx] == 0)
+        // result[1] = idx;
+        // }
+
+        // return result;
+    }
 }
 
 public class ArrayPrbs {
     public static void main(String[] args) {
         ArraySolutions solution = new ArraySolutions();
-        System.out.println(solution.majorityElementTwo(new int[] { 1, 1, 1, 3, 3, 2, 2, 2 }));
+        System.out.println(
+                Arrays.toString(solution.findMissingRepeatingNumbers(new int[] { 1, 3, 3, 4, 5 })));
     }
 }
