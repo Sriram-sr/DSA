@@ -1599,25 +1599,25 @@ class ArraySolutions {
     public int[] findMissingRepeatingNumbers(int[] nums) {
         // Brute O(n^2) time & O(1) space
 
-        int[] result = new int[2];
-        int count;
+        // int[] result = new int[2];
+        // int count;
 
-        for (int ele = 1; ele <= nums.length; ele++) {
-            count = 0;
-            for (int idx = 0; idx < nums.length; idx++) {
-                if (ele == nums[idx])
-                    count++;
-            }
-            if (count == 2)
-                result[0] = ele;
-            else if (count == 0) {
-                result[1] = ele;
-            }
-            if (result[0] != 0 && result[1] != 0)
-                break;
-        }
+        // for (int ele = 1; ele <= nums.length; ele++) {
+        // count = 0;
+        // for (int idx = 0; idx < nums.length; idx++) {
+        // if (ele == nums[idx])
+        // count++;
+        // }
+        // if (count == 2)
+        // result[0] = ele;
+        // else if (count == 0) {
+        // result[1] = ele;
+        // }
+        // if (result[0] != 0 && result[1] != 0)
+        // break;
+        // }
 
-        return result;
+        // return result;
 
         // Better O(2n) time & O(n) space
 
@@ -1635,13 +1635,45 @@ class ArraySolutions {
         // }
 
         // return result;
+
+        // Optimal O(n) time & O(1) space
+
+        long n = nums.length;
+        long sum = 0, sumSquares = 0;
+        long sumOfN = (n * (n + 1)) / 2;
+        long sumOfSquaresN = (n * (n + 1) * (2 * n + 1)) / 6;
+
+        for (int idx = 0; idx < n; idx++) {
+            sum += nums[idx];
+            sumSquares += ((long) nums[idx] * (long) nums[idx]);
+        }
+
+        long val1 = sum - sumOfN;
+        long val2 = sumSquares - sumOfSquaresN;
+        val2 = val2 / val1;
+        long x = (val1 + val2) / 2;
+        long y = x - val1;
+
+        return new int[] { (int) x, (int) y };
+    }
+
+    public long numberOfInversions(int[] nums) {
+        int count = 0;
+
+        for (int idx = 0; idx < nums.length; idx++) {
+            for (int subIdx = idx + 1; subIdx < nums.length; subIdx++) {
+                if (nums[idx] > nums[subIdx])
+                    count++;
+            }
+        }
+
+        return count;
     }
 }
 
 public class ArrayPrbs {
     public static void main(String[] args) {
         ArraySolutions solution = new ArraySolutions();
-        System.out.println(
-                Arrays.toString(solution.findMissingRepeatingNumbers(new int[] { 1, 3, 3, 4, 5 })));
+        System.out.println(solution.numberOfInversions(new int[] { 9, 5, 4, 2 }));
     }
 }
