@@ -216,11 +216,63 @@ class WorkoutSolutions {
 
         return fPtr + 1;
     }
+
+    public int merge(int[] arr, int low, int mid, int high) {
+        int count = 0;
+        int left = low;
+        int right = mid + 1;
+        List<Integer> temp = new ArrayList<>();
+
+        while (left <= mid && right <= high) {
+            if (arr[left] <= arr[right]) {
+                temp.add(arr[left]);
+                left++;
+            } else {
+                count += (mid - left + 1);
+                temp.add(arr[right]);
+                right++;
+            }
+        }
+
+        while (left <= mid) {
+            temp.add(arr[left]);
+            left++;
+        }
+        while (right <= high) {
+            temp.add(arr[right]);
+            right++;
+        }
+
+        for (int idx = low; idx <= high; idx++) {
+            arr[idx] = temp.get(idx - low);
+        }
+
+        return count;
+    }
+
+    public int mergeSort(int[] arr, int low, int high) {
+        if (low >= high)
+            return 0;
+
+        int count = 0;
+        int mid = (low + high) / 2;
+
+        count += mergeSort(arr, low, mid);
+        count += mergeSort(arr, mid + 1, high);
+        count += merge(arr, low, mid, high);
+
+        return count;
+    }
+
+    public void mergeSortArray(int[] arr) {
+        int inversions = mergeSort(arr, 0, arr.length - 1);
+        System.out.println(inversions);
+    }
 }
 
 public class Workout {
     public static void main(String[] args) {
         WorkoutSolutions solutions = new WorkoutSolutions();
-        System.out.println(solutions.removeDuplicates(new int[] { -30, -30, 0, 0, 10, 20, 30, 30 }));
+        solutions.mergeSortArray(new int[] {2, 3, 7, 1, 3, 5});
     }
 }

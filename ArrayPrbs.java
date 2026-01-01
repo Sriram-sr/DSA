@@ -1657,23 +1657,76 @@ class ArraySolutions {
         return new int[] { (int) x, (int) y };
     }
 
-    public long numberOfInversions(int[] nums) {
-        int count = 0;
+    public long merge(int[] arr, int low, int mid, int high) {
+        long count = 0;
+        int left = low;
+        int right = mid + 1;
+        List<Integer> temp = new ArrayList<>();
 
-        for (int idx = 0; idx < nums.length; idx++) {
-            for (int subIdx = idx + 1; subIdx < nums.length; subIdx++) {
-                if (nums[idx] > nums[subIdx])
-                    count++;
+        while (left <= mid && right <= high) {
+            if (arr[left] <= arr[right]) {
+                temp.add(arr[left]);
+                left++;
+            } else {
+                count += (long) (mid - left + 1);
+                temp.add(arr[right]);
+                right++;
             }
         }
 
+        while (left <= mid) {
+            temp.add(arr[left]);
+            left++;
+        }
+        while (right <= high) {
+            temp.add(arr[right]);
+            right++;
+        }
+
+        for (int idx = low; idx <= high; idx++) {
+            arr[idx] = temp.get(idx - low);
+        }
+
         return count;
+    }
+
+    public long mergeSort(int[] arr, int low, int high) {
+        if (low >= high)
+            return 0;
+
+        long count = 0;
+        int mid = (low + high) / 2;
+
+        count += mergeSort(arr, low, mid);
+        count += mergeSort(arr, mid + 1, high);
+        count += merge(arr, low, mid, high);
+
+        return count;
+    }
+
+    public long numberOfInversions(int[] nums) {
+        // Brute O(n^2) time & O(1) space
+
+        // int count = 0;
+
+        // for (int idx = 0; idx < nums.length; idx++) {
+        // for (int subIdx = idx + 1; subIdx < nums.length; subIdx++) {
+        // if (nums[idx] > nums[subIdx])
+        // count++;
+        // }
+        // }
+
+        // return count;
+
+        // Optimal O(n log n) time & O(n) space
+
+        return mergeSort(nums, 0, nums.length - 1);
     }
 }
 
 public class ArrayPrbs {
     public static void main(String[] args) {
         ArraySolutions solution = new ArraySolutions();
-        System.out.println(solution.numberOfInversions(new int[] { 9, 5, 4, 2 }));
+        System.out.println(solution.numberOfInversions(new int[] { 2, 3, 7, 1, 3, 5 }));
     }
 }
