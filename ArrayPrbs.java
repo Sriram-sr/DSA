@@ -1471,6 +1471,7 @@ class ArraySolutions {
         System.out.println(Arrays.deepToString(matrix));
     }
 
+    // Count subarrays with given sum
     public int subarraySum(int[] nums, int k) {
         // Brute O(n^2)
 
@@ -1514,6 +1515,7 @@ class ArraySolutions {
         return tmax;
     }
 
+    // Majority Element-II
     public List<Integer> majorityElementTwo(int[] nums) {
         // Brute O(n) time & O(n) space
 
@@ -1596,6 +1598,7 @@ class ArraySolutions {
         return result;
     }
 
+    // Find the repeating and missing number
     public int[] findMissingRepeatingNumbers(int[] nums) {
         // Brute O(n^2) time & O(1) space
 
@@ -1657,8 +1660,7 @@ class ArraySolutions {
         return new int[] { (int) x, (int) y };
     }
 
-    public long merge(int[] arr, int low, int mid, int high) {
-        long count = 0;
+    public void merge(int[] arr, int low, int mid, int high) {
         int left = low;
         int right = mid + 1;
         List<Integer> temp = new ArrayList<>();
@@ -1668,7 +1670,6 @@ class ArraySolutions {
                 temp.add(arr[left]);
                 left++;
             } else {
-                count += (long) (mid - left + 1);
                 temp.add(arr[right]);
                 right++;
             }
@@ -1686,6 +1687,17 @@ class ArraySolutions {
         for (int idx = low; idx <= high; idx++) {
             arr[idx] = temp.get(idx - low);
         }
+    }
+
+    public long countPairs(int[] arr, int low, int mid, int high) {
+        long count = 0;
+        int right = mid + 1;
+
+        for (int left = low; left <= mid; left++) {
+            while (right <= high && ((long) arr[left] > (2 * (long) arr[right])))
+                right++;
+            count += right - (mid + 1);
+        }
 
         return count;
     }
@@ -1699,11 +1711,13 @@ class ArraySolutions {
 
         count += mergeSort(arr, low, mid);
         count += mergeSort(arr, mid + 1, high);
-        count += merge(arr, low, mid, high);
+        count += countPairs(arr, low, mid, high);
+        merge(arr, low, mid, high);
 
         return count;
     }
 
+    // Count Inversions
     public long numberOfInversions(int[] nums) {
         // Brute O(n^2) time & O(1) space
 
@@ -1722,11 +1736,68 @@ class ArraySolutions {
 
         return mergeSort(nums, 0, nums.length - 1);
     }
+
+    // Reverse Pairs
+    public int reversePairs(int[] nums) {
+        // Brute O(N^2) time & O(1) space
+
+        // int count = 0;
+
+        // for (int idx = 0; idx < nums.length; idx++) {
+        // for (int subIdx = idx + 1; subIdx < nums.length; subIdx++) {
+        // if ((long) nums[idx] > 2 * (long) nums[subIdx])
+        // count++;
+        // }
+        // }
+
+        // return count;
+
+        // Optimal O(logN x (N+N)) = O(2NxlogN) time & O(N) space
+
+        return (int) mergeSort(nums, 0, nums.length - 1);
+    }
+
+    // Maximum Product Subarray in an Array
+    public int maxProduct(int[] nums) {
+        // Brute O(N^2) time & O(1) space
+
+        // int maxProd = nums[0];
+        // int tempProd;
+
+        // for (int idx = 0; idx < nums.length; idx++) {
+        // tempProd = 1;
+        // for (int subIdx = idx; subIdx < nums.length; subIdx++) {
+        // tempProd *= nums[subIdx];
+        // maxProd = Integer.max(maxProd, tempProd);
+        // }
+        // }
+
+        // return maxProd;
+
+        // Optimal O(N) time & O(1) space
+
+        int maxProd = Integer.MIN_VALUE;
+        int prefixProd = 1;
+        int suffixProd = 1;
+        int n = nums.length;
+
+        for (int idx = 0; idx < n; idx++) {
+            if (prefixProd == 0)
+                prefixProd = 1;
+            if (suffixProd == 0)
+                suffixProd = 1;
+            prefixProd *= nums[idx];
+            suffixProd *= nums[n - idx - 1];
+            maxProd = Math.max(maxProd, Math.max(prefixProd, suffixProd));
+        }
+
+        return maxProd;
+    }
 }
 
 public class ArrayPrbs {
     public static void main(String[] args) {
         ArraySolutions solution = new ArraySolutions();
-        System.out.println(solution.numberOfInversions(new int[] { 2, 3, 7, 1, 3, 5 }));
+        System.out.println(solution.maxProduct(new int[] { -5, 0, -2 }));
     }
 }
