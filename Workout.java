@@ -284,11 +284,77 @@ class WorkoutSolutions {
 
         return new int[] { floor, ceil };
     }
+
+    public int lowerBound(int[] nums, int x) {
+        int low = 0;
+        int high = nums.length - 1;
+        int answer = high + 1;
+        int mid;
+
+        while (low <= high) {
+            mid = (low + high) / 2;
+            if (nums[mid] >= x) {
+                answer = mid;
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+
+        return answer;
+    }
+
+    public int upperBound(int[] nums, int x) {
+        int low = 0;
+        int high = nums.length - 1;
+        int answer = high + 1;
+        int mid;
+
+        while (low <= high) {
+            mid = (low + high) / 2;
+            if (nums[mid] > x) {
+                answer = mid;
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+
+        return answer;
+    }
+
+    public int[] searchRange(int[] nums, int target) {
+        // int first = -1, last = -1;
+
+        // for (int idx = 0; idx < nums.length; idx++) {
+        // if (nums[idx] == target) {
+        // if (last == -1) {
+        // first = idx;
+        // last = idx;
+        // } else {
+        // last = idx;
+        // }
+        // }
+        // }
+
+        // return new int[] { first, last };
+
+        // Approach 2
+
+        int lb = lowerBound(nums, target);
+        int ub = upperBound(nums, target);
+
+        if (lb != nums.length && nums[lb] == target) {
+            return new int[] { lb, ub - 1 };
+        }
+
+        return new int[] { -1, -1 };
+    }
 }
 
 public class Workout {
     public static void main(String[] args) {
         WorkoutSolutions solutions = new WorkoutSolutions();
-        System.out.println(Arrays.toString(solutions.getFloorAndCeil(new int[] { 2, 4, 6, 8, 10, 12, 14 }, 7)));
+        System.out.println(Arrays.toString(solutions.searchRange(new int[] { 5, 7, 7, 8, 8, 10 }, 7)));
     }
 }
