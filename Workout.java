@@ -268,11 +268,27 @@ class WorkoutSolutions {
         int inversions = mergeSort(arr, 0, arr.length - 1);
         System.out.println(inversions);
     }
+
+    public int[] getFloorAndCeil(int[] nums, int x) {
+        int floor = -1, ceil = -1;
+
+        for (int idx = 0; idx < nums.length; idx++) {
+            if (nums[idx] <= x) {
+                floor = nums[idx];
+            }
+            if (nums[idx] >= x) {
+                ceil = nums[idx];
+                break;
+            }
+        }
+
+        return new int[] { floor, ceil };
+    }
 }
 
 public class Workout {
     public static void main(String[] args) {
         WorkoutSolutions solutions = new WorkoutSolutions();
-        solutions.mergeSortArray(new int[] {2, 3, 7, 1, 3, 5});
+        System.out.println(Arrays.toString(solutions.getFloorAndCeil(new int[] { 2, 4, 6, 8, 10, 12, 14 }, 7)));
     }
 }

@@ -126,7 +126,31 @@ class SearchingSolutions {
     }
 
     public int[] getFloorAndCeil(int[] nums, int x) {
-        return new int[] { getFloor(nums, x), getCeil(nums, x) };
+        // Optimal I O(2 log n) time & O(1) space
+
+        // return new int[] { getFloor(nums, x), getCeil(nums, x) };
+
+        // Optimal II O(log n) time & O(1) space
+
+        int floor = -1, ceil = -1;
+        int low = 0, high = nums.length - 1;
+        int mid;
+
+        while (low <= high) {
+            mid = low + (high - low) / 2;
+
+            if (nums[mid] == x) {
+                return new int[] { nums[mid], nums[mid] };
+            } else if (nums[mid] > x) {
+                ceil = nums[mid];
+                high = mid - 1;
+            } else {
+                floor = nums[mid];
+                low = mid + 1;
+            }
+        }
+
+        return new int[] { floor, ceil };
     }
 
     public int getFirstOccurance(int[] arr, int target) {
