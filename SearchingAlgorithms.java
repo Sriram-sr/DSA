@@ -230,6 +230,7 @@ class SearchingSolutions {
         return new int[] { first, getLastOccurance(nums, target) };
     }
 
+    // Search in rotated sorted array-I
     public int rotatedSearch(int[] nums, int k) {
         // Optimal: O(log n) && O(1) space
 
@@ -272,10 +273,11 @@ class SearchingSolutions {
         return occurances[1] - occurances[0] + 1;
     }
 
+    // Search in rotated sorted array-II
     public boolean rotatedSearchWithDuplicates(int[] nums, int k) {
         // Optimal
         // O(log n) -> Average case
-        // O(n/2) -> Worst case
+        // O(n/2) -> Worst case (When there are lot of duplicates, can shrink upto n/2)
 
         int low = 0;
         int high = nums.length - 1;
@@ -312,6 +314,7 @@ class SearchingSolutions {
         return false;
     }
 
+    // Find minimum in Rotated Sorted Array
     public int findMin(ArrayList<Integer> arr) {
         // Optimal: O(log n) && O(1) space
 
@@ -323,6 +326,7 @@ class SearchingSolutions {
         while (low <= high) {
             mid = (low + high) / 2;
 
+            // At some point search space is only sorted
             if (arr.get(low) < arr.get(high)) {
                 minElement = Math.min(minElement, arr.get(low));
                 break;
