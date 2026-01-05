@@ -391,14 +391,45 @@ class SearchingSolutions {
     }
 
     public int singleNonDuplicate(int[] nums) {
-        for (int idx = 0; idx < nums.length - 1; idx++) {
-            if (idx == nums.length - 1 && idx % 2 != 0) {
-                return nums[idx];
+        // Brute O(n) time & O(1) space
+
+        // for (int idx = 0; idx < nums.length - 1; idx++) {
+        // if (idx == nums.length - 1 && idx % 2 != 0) {
+        // return nums[idx];
+        // }
+
+        // if (idx % 2 == 0) {
+        // if (nums[idx] != nums[idx + 1])
+        // return nums[idx];
+        // }
+        // }
+
+        // return -1;
+
+        // Optimal: O(log n) time & O(1) space
+
+        if (nums.length == 1)
+            return nums[0];
+        if (nums[0] != nums[1])
+            return nums[0];
+        if (nums[nums.length - 1] != nums[nums.length - 2])
+            return nums[nums.length - 1];
+
+        int low = 1;
+        int high = nums.length - 2;
+        int mid;
+
+        while (low <= high) {
+            mid = low + (high - low) / 2;
+
+            if (nums[mid - 1] != nums[mid] && nums[mid] != nums[mid + 1]) {
+                return nums[mid];
             }
 
-            if (idx % 2 == 0) {
-                if (nums[idx] != nums[idx + 1])
-                    return nums[idx];
+            if (mid % 2 == 1 && nums[mid - 1] == nums[mid] || mid % 2 == 0 && nums[mid] == nums[mid + 1]) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
             }
         }
 
@@ -535,6 +566,6 @@ class SearchingSolutions {
 public class SearchingAlgorithms {
     public static void main(String[] args) {
         SearchingSolutions solutions = new SearchingSolutions();
-        System.out.println(solutions.NthRoot(4, 81));
+        System.out.println(solutions.singleNonDuplicate(new int[] { 1, 1, 2 }));
     }
 }
