@@ -386,11 +386,31 @@ class WorkoutSolutions {
 
         return false;
     }
+
+    public int floorSqrt(int n) {
+        int low = 1;
+        int high = n;
+        int mid;
+        long val;
+
+        while (low <= high) {
+            mid = low + (high - low) / 2;
+            val = (long) mid * (long) mid;
+
+            if (val <= (long) n) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+
+        return high;
+    }
 }
 
 public class Workout {
     public static void main(String[] args) {
         WorkoutSolutions solutions = new WorkoutSolutions();
-        System.out.println(Arrays.toString(solutions.searchRange(new int[] { 5, 7, 7, 8, 8, 10 }, 7)));
+        System.out.println(solutions.floorSqrt(18));
     }
 }
