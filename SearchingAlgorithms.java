@@ -489,6 +489,8 @@ class SearchingSolutions {
     }
 
     public int findPowHelper(int mid, int N, int M) {
+        // O(N) implementation
+
         // long ans = 1;
 
         // for (int cnt = 1; cnt <= N; cnt++) {
@@ -501,7 +503,7 @@ class SearchingSolutions {
 
         // return 0;
 
-        // Alternate
+        // Alternate O(log N) implementation
 
         long base = mid;
         long ans = 1;
@@ -527,7 +529,7 @@ class SearchingSolutions {
     }
 
     public int NthRoot(int N, int M) {
-        // Brute O(M log N)
+        // Brute (log M) * O(N) time & O(1) space
 
         // long value;
 
@@ -561,11 +563,73 @@ class SearchingSolutions {
 
         return -1;
     }
+
+    public int calculateDivSum(int[] nums, int limit, int divisor) {
+        int sum = 0;
+
+        for (int num : nums) {
+            // sum += Math.ceilDiv(num, divisor);
+            sum += (num + divisor - 1) / divisor;
+            if (sum > limit)
+                return limit + 1;
+        }
+
+        return sum;
+    }
+
+    public int smallestDivisor(int[] nums, int limit) {
+        // Brute: O(n * m) time & O(1) space where m is max element in nums
+
+        int max = Integer.MIN_VALUE;
+        for (int num : nums) {
+            if (num > max)
+                max = num;
+        }
+        int val;
+
+        for (int divisor = 1; divisor <= max; divisor++) {
+            val = 0;
+            for (int idx = 0; idx < nums.length; idx++) {
+                val += Math.ceil((double) nums[idx] / (double) divisor);
+            }
+            if (val <= limit)
+                return divisor;
+        }
+
+        return -1;
+
+        // Optimal: O(n log m) time & O(1) space where m is max element in nums
+
+        // int low = 1;
+        // int max = Integer.MIN_VALUE;
+        // for (int num : nums) {
+        // if (num > max)
+        // max = num;
+        // }
+        // int high = max;
+        // int mid, divSum;
+        // int minDivisor = -1;
+
+        // while (low <= high) {
+        // mid = low + (high - low) / 2;
+        // divSum = calculateDivSum(nums, limit, mid);
+
+        // if (divSum <= limit) {
+        // minDivisor = mid;
+        // high = mid - 1;
+        // } else {
+        // low = mid + 1;
+        // }
+        // }
+
+        // return minDivisor;
+    }
 }
 
 public class SearchingAlgorithms {
     public static void main(String[] args) {
         SearchingSolutions solutions = new SearchingSolutions();
-        System.out.println(solutions.singleNonDuplicate(new int[] { 1, 1, 2 }));
+        System.out.println(
+                solutions.smallestDivisor(new int[] { 1000000, 1000000, 1000000, 1000000, 1000000, 1000000 }, 6));
     }
 }
