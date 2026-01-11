@@ -577,6 +577,7 @@ class SearchingSolutions {
         return sum;
     }
 
+    // Find the smallest divisor
     public int smallestDivisor(int[] nums, int limit) {
         // Brute: O(n * m) time & O(1) space where m is max element in nums
 
@@ -624,12 +625,67 @@ class SearchingSolutions {
 
         // return minDivisor;
     }
+
+    public long calculateHours(int[] arr, int hour) {
+        long hoursTaken = 0;
+
+        for (int idx = 0; idx < arr.length; idx++) {
+            hoursTaken += (long) Math.ceil((double) arr[idx] / (double) hour);
+        }
+
+        return hoursTaken;
+    }
+
+    // Koko eating bananas
+    public int minimumRateToEatBananas(int[] nums, int h) {
+        // Brute O(n * m) time & O(1) space where m is max element in nums
+
+        // int max = Integer.MIN_VALUE;
+
+        // for (int num : nums) {
+        // if (num > max) {
+        // max = num;
+        // }
+        // }
+
+        // for (int hour = 1; hour <= max; hour++) {
+        // if (calculateHours(nums, hour) <= (long) h)
+        // return hour;
+        // }
+
+        // return max;
+
+        // Optimal
+
+        int max = Integer.MIN_VALUE;
+        int mid;
+
+        for (int num : nums) {
+            if (num > max) {
+                max = num;
+            }
+        }
+
+        int low = 1;
+        int high = max;
+
+        while (low <= high) {
+            mid = low + (high - low) / 2;
+            if (calculateHours(nums, mid) <= (long) h) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+
+        return low;
+    }
 }
 
 public class SearchingAlgorithms {
     public static void main(String[] args) {
         SearchingSolutions solutions = new SearchingSolutions();
         System.out.println(
-                solutions.smallestDivisor(new int[] { 1000000, 1000000, 1000000, 1000000, 1000000, 1000000 }, 6));
+                solutions.minimumRateToEatBananas(new int[] { 3, 7, 6, 11 }, 8));
     }
 }
