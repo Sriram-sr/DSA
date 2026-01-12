@@ -680,12 +680,45 @@ class SearchingSolutions {
 
         return low;
     }
+
+    // Minimum days to make M bouquets
+    public int roseGarden(int n, int[] nums, int k, int m) {
+        // Brute
+
+        int max = Integer.MIN_VALUE;
+        int requiredRoses = k * m;
+        int rosesBloomed;
+
+        if (requiredRoses > n) {
+            return -1;
+        }
+
+        for (int num : nums) {
+            if (num > max) {
+                max = num;
+            }
+        }
+
+        for (int day = 1; day <= max; day++) {
+            rosesBloomed = 0;
+            for (int idx = 0; idx < nums.length; idx++) {
+                if (nums[idx] <= day)
+                    rosesBloomed++;
+            }
+
+            if (rosesBloomed == requiredRoses) {
+                return day;
+            }
+        }
+
+        return -1;
+    }
 }
 
 public class SearchingAlgorithms {
     public static void main(String[] args) {
         SearchingSolutions solutions = new SearchingSolutions();
         System.out.println(
-                solutions.minimumRateToEatBananas(new int[] { 3, 7, 6, 11 }, 8));
+                solutions.roseGarden(8, new int[] { 7, 7, 7, 7, 13, 11, 12, 7 }, 3, 2));
     }
 }
