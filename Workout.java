@@ -411,6 +411,6 @@ class WorkoutSolutions {
 public class Workout {
     public static void main(String[] args) {
         WorkoutSolutions solutions = new WorkoutSolutions();
-        System.out.println(solutions.floorSqrt(18));
+        System.out.println(solutions.floorSqrt(20));
     }
 }
