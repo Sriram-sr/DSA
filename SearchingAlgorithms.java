@@ -702,7 +702,9 @@ class SearchingSolutions {
         for (int day = 1; day <= max; day++) {
             rosesBloomed = 0;
             for (int idx = 0; idx < nums.length; idx++) {
-                if (nums[idx] <= day)
+                if (idx == 0 && nums[idx] <= day)
+                    rosesBloomed++;
+                if (idx != 0 && nums[idx] <= day && nums[idx - 1] <= day)
                     rosesBloomed++;
             }
 
