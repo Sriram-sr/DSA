@@ -786,12 +786,119 @@ class SearchingSolutions {
 
         return low;
     }
+
+    public int calculateDays(int[] weights, int maxLoad) {
+        int days = 1;
+        int load = 0;
+
+        for (int weight : weights) {
+            if (load + weight > maxLoad) {
+                days += 1;
+                load = weight;
+            } else {
+                load += weight;
+            }
+        }
+
+        return days;
+    }
+
+    // Capacity to Ship Packages Within D Days
+    public int shipWithinDays(int[] weights, int days) {
+        // Brute O(sum - max * n) time & O(1) space where sum is total of weights
+
+        // int maxValue = Integer.MIN_VALUE;
+        // int maxCapacity = 0;
+
+        // for (int weight : weights) {
+        // if (weight > maxValue)
+        // maxValue = weight;
+        // maxCapacity += weight;
+        // }
+
+        // int minCapacity = maxValue;
+
+        // for (int maxLoad = minCapacity; maxLoad <= maxCapacity; maxLoad++) {
+        // if (calculateDays(weights, maxLoad) <= days)
+        // return maxLoad;
+        // }
+
+        // return maxCapacity;
+
+        // Optimal O(n log(sum - max)) time & O(1) space
+
+        int maxValue = Integer.MIN_VALUE;
+        int maxCapacity = 0;
+
+        for (int weight : weights) {
+            if (weight > maxValue)
+                maxValue = weight;
+            maxCapacity += weight;
+        }
+
+        int minCapacity = maxValue;
+
+        int low = minCapacity;
+        int high = maxCapacity;
+        int mid;
+
+        while (low <= high) {
+            mid = low + (high - low) / 2;
+
+            if (calculateDays(weights, mid) <= days)
+                high = mid - 1;
+            else
+                low = mid + 1;
+        }
+
+        return low;
+    }
+
+    // Kth Missing Positive Number
+    public int findKthPositive(int[] arr, int k) {
+        // Brute (Tried - Won't work for all testcases)
+
+        // int max = 0;
+        // for (int num : arr) {
+        // if (num > max) {
+        // max = num;
+        // }
+        // }
+
+        // int[] hash = new int[max + 2];
+        // for (int num : arr) {
+        // hash[num]++;
+        // }
+
+        // int cnt = 0;
+        // for (int idx = 1; idx < hash.length; idx++) {
+        // if (hash[idx] == 0) {
+        // cnt++;
+        // }
+        // if (cnt == k) {
+        // return idx;
+        // }
+        // }
+
+        // return -1;
+
+        // Brute 2
+
+        for (int ele : arr) {
+            if (ele <= k)
+                k++;
+            else
+                return k;
+        }
+
+        return k;
+    }
 }
 
 public class SearchingAlgorithms {
     public static void main(String[] args) {
         SearchingSolutions solutions = new SearchingSolutions();
         System.out.println(
-                solutions.roseGarden(8, new int[] { 1, 10, 3, 10, 2 }, 1, 3));
+                solutions.findKthPositive(new int[] { 1 }, 1));
     }
 }
