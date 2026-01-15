@@ -681,39 +681,110 @@ class SearchingSolutions {
         return low;
     }
 
+    public boolean isBouquetPossible(int arr[], int day, int adjflwrs, int totalBouquets) {
+        int cnt = 0;
+        int bouquetsPossible = 0;
+
+        for (int idx = 0; idx < arr.length; idx++) {
+            if (arr[idx] <= day) {
+                cnt++;
+            } else {
+                bouquetsPossible += cnt / adjflwrs;
+                cnt = 0;
+            }
+        }
+
+        bouquetsPossible += cnt / adjflwrs;
+
+        return bouquetsPossible >= totalBouquets;
+    }
+
     // Minimum days to make M bouquets
     public int roseGarden(int n, int[] nums, int k, int m) {
-        // Brute
+        // Brute - 1 O(max * n) time & O(1) space
 
-        int max = Integer.MIN_VALUE;
-        int requiredRoses = k * m;
-        int rosesBloomed;
+        // int max = Integer.MIN_VALUE;
+        // int requiredRoses = k * m;
+        // int rosesBloomed;
 
-        if (requiredRoses > n) {
+        // if (requiredRoses > n) {
+        // return -1;
+        // }
+
+        // for (int num : nums) {
+        // if (num > max) {
+        // max = num;
+        // }
+        // }
+
+        // for (int day = 1; day <= max; day++) {
+        // rosesBloomed = 0;
+        // for (int idx = 0; idx < nums.length; idx++) {
+        // if (idx == 0 && nums[idx] <= day)
+        // rosesBloomed++;
+        // if (idx != 0 && nums[idx] <= day && nums[idx - 1] <= day)
+        // rosesBloomed++;
+        // }
+
+        // if (rosesBloomed == requiredRoses) {
+        // return day;
+        // }
+        // }
+
+        // return -1;
+
+        // Brute - 2 O(max - min) * O(n) time & O(1) space
+
+        // if (k * m > n) {
+        // return -1;
+        // }
+
+        // int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
+
+        // for (int day : nums) {
+        // if (day < min)
+        // min = day;
+        // if (day > max)
+        // max = day;
+        // }
+
+        // for (int day = min; day <= max; day++) {
+        // if (isBouquetPossible(nums, day, k, m)) {
+        // return day;
+        // }
+        // }
+
+        // return -1;
+
+        // Optimal O(log(max - min)) * O(n) time & O(1) space
+
+        if (k * m > n) {
             return -1;
         }
 
-        for (int num : nums) {
-            if (num > max) {
-                max = num;
-            }
+        int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
+
+        for (int day : nums) {
+            if (day < min)
+                min = day;
+            if (day > max)
+                max = day;
         }
 
-        for (int day = 1; day <= max; day++) {
-            rosesBloomed = 0;
-            for (int idx = 0; idx < nums.length; idx++) {
-                if (idx == 0 && nums[idx] <= day)
-                    rosesBloomed++;
-                if (idx != 0 && nums[idx] <= day && nums[idx - 1] <= day)
-                    rosesBloomed++;
-            }
+        int low = min;
+        int high = max;
+        int mid;
 
-            if (rosesBloomed == requiredRoses) {
-                return day;
-            }
+        while (low <= high) {
+            mid = low + (high - low) / 2;
+
+            if (isBouquetPossible(nums, mid, k, m))
+                high = mid - 1;
+            else
+                low = mid + 1;
         }
 
-        return -1;
+        return low;
     }
 }
 
@@ -721,6 +792,6 @@ public class SearchingAlgorithms {
     public static void main(String[] args) {
         SearchingSolutions solutions = new SearchingSolutions();
         System.out.println(
-                solutions.roseGarden(8, new int[] { 7, 7, 7, 7, 13, 11, 12, 7 }, 3, 2));
+                solutions.roseGarden(8, new int[] { 1, 10, 3, 10, 2 }, 1, 3));
     }
 }
