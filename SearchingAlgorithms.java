@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 class SearchingSolutions {
     public int binarySearchRecursive(int[] arr, int target, int low, int high) {
@@ -893,12 +894,79 @@ class SearchingSolutions {
 
         return k;
     }
+
+    public int getCowsPlaced(int[] cows, int distance) {
+        int cowPositioned = cows[0];
+        int possiblePstns = 1;
+
+        for (int idx = 1; idx < cows.length; idx++) {
+            if (cows[idx] - cowPositioned >= distance) {
+                possiblePstns++;
+                cowPositioned = cows[idx];
+            }
+        }
+
+        return possiblePstns;
+    }
+
+    public int aggressiveCows(int[] nums, int k) {
+        // Brute O(max * n) + O n log n time & O(1) space
+
+        // Arrays.sort(nums);
+        // int max = nums[nums.length - 1];
+        // int cowPositioned, possiblePstns;
+        // int maxDistance = 0;
+
+        // for (int distance = 1; distance <= max; distance++) {
+        // cowPositioned = nums[0];
+        // possiblePstns = 1;
+        // for (int idx = 1; idx < nums.length; idx++) {
+        // if (nums[idx] >= cowPositioned + distance) {
+        // possiblePstns += 1;
+        // cowPositioned = nums[idx];
+        // }
+        // if (possiblePstns == k) {
+        // break;
+        // }
+        // }
+
+        // if (possiblePstns < k) {
+        // break;
+        // }
+
+        // if (distance > maxDistance) {
+        // maxDistance = distance;
+        // }
+
+        // }
+
+        // return maxDistance;
+
+        // Optimal O(n log n) + O(n log max) time & O(1) space
+
+        Arrays.sort(nums);
+        int low = 1;
+        int high = nums[nums.length - 1];
+        int mid;
+
+        while (low <= high) {
+            mid = low + (high - low) / 2;
+            int possiblePstns = getCowsPlaced(nums, mid);
+            if (possiblePstns >= k) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+
+        return high;
+    }
 }
 
 public class SearchingAlgorithms {
     public static void main(String[] args) {
         SearchingSolutions solutions = new SearchingSolutions();
         System.out.println(
-                solutions.findKthPositive(new int[] { 1 }, 1));
+                solutions.aggressiveCows(new int[] { 0, 3, 4, 7, 10, 9 }, 4));
     }
 }
