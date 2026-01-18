@@ -1,6 +1,4 @@
 import java.util.Arrays;
-import java.util.Map;
-import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -44,7 +42,7 @@ class ArraySolutions {
 
     // Reverse an array
     public int[] reverseArray(int[] arr, int n) {
-        // Brute
+        // Brute O(n) & O(n) space
 
         // int[] tempArray = new int[n];
 
@@ -58,7 +56,19 @@ class ArraySolutions {
 
         // return arr;
 
-        // Optimal
+        // Optimal - 1 O(n/2) & O(1) space
+
+        // int temp;
+
+        // for (int idx = 0; idx < n / 2; idx++) {
+        // temp = arr[n - idx - 1];
+        // arr[n - idx - 1] = arr[idx];
+        // arr[idx] = temp;
+        // }
+
+        // return arr;
+
+        // Optimal - 2 O(n/2) & O(1) space
 
         int left = 0;
         int right = n - 1;
