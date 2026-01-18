@@ -406,11 +406,27 @@ class WorkoutSolutions {
 
         return high;
     }
+
+    public StringBuilder reverseString(StringBuilder s) {
+        int left = 0;
+        int right = s.length() - 1;
+        char temp;
+
+        while (left < right) {
+            temp = s.charAt(right);
+            s.setCharAt(right, s.charAt(left));
+            s.setCharAt(left, temp);
+            right--;
+            left++;
+        }
+
+        return s;
+    }
 }
 
 public class Workout {
     public static void main(String[] args) {
         WorkoutSolutions solutions = new WorkoutSolutions();
-        System.out.println(solutions.floorSqrt(20));
+        System.out.println(solutions.reverseString(new StringBuilder("Sriram")));
     }
 }
