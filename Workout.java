@@ -427,6 +427,6 @@ class WorkoutSolutions {
 public class Workout {
     public static void main(String[] args) {
         WorkoutSolutions solutions = new WorkoutSolutions();
-        System.out.println(solutions.reverseString(new StringBuilder("Sriram")));
+        System.out.println(solutions.reverseString(new StringBuilder("marirs")));
     }
 }
