@@ -422,11 +422,38 @@ class WorkoutSolutions {
 
         return s;
     }
+
+    public int missingNum(int arr[]) {
+        // Optimal 1 - O(n) time and O(1) space
+
+        // long givenSum = 0;
+
+        // for (int idx = 0; idx < arr.length; idx++)
+        // givenSum += (long) arr[idx];
+
+        // int n = arr.length + 1;
+        // long sumOfN = (long) n * (long) (n + 1) / 2;
+
+        // return (int) (sumOfN - givenSum);
+
+        // Optimal 2 - O(n) time and O(1) space
+
+        int xorGiven = 0;
+        int xorN = 0;
+
+        for (int idx = 0; idx < arr.length; idx++) {
+            xorGiven ^= arr[idx];
+            xorN ^= idx + 1;
+        }
+        xorN ^= arr.length + 1;
+
+        return xorN ^ xorGiven;
+    }
 }
 
 public class Workout {
     public static void main(String[] args) {
         WorkoutSolutions solutions = new WorkoutSolutions();
-        System.out.println(solutions.reverseString(new StringBuilder("Sriram SR")));
+        System.out.println(solutions.missingNum(new int[] { 8, 2, 4, 5, 3, 7, 1 }));
     }
 }
