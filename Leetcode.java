@@ -36,6 +36,21 @@ class Problems {
 
         return (int) reversed;
     }
+
+    // Find the Duplicate Number
+    public int Problem_287(int[] nums) {
+        int max = nums[0];
+
+        for (int num : nums) {
+            if (num > max)
+                max = num;
+        }
+
+        int[] hash = new int[max + 1];
+        for (int idx = 0; idx < nums.length; idx++) {
+            if ()
+        }
+    }
 }
 
 public class Leetcode {
