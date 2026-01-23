@@ -454,6 +454,6 @@ class WorkoutSolutions {
 public class Workout {
     public static void main(String[] args) {
         WorkoutSolutions solutions = new WorkoutSolutions();
-        System.out.println(solutions.missingNum(new int[] { 8, 2, 4, 5, 3, 7, 1 }));
+        System.out.println(solutions.missingNum(new int[] { 8, 2, 4, 5, 7, 3, 1 }));
     }
 }
