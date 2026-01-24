@@ -961,12 +961,104 @@ class SearchingSolutions {
 
         return high;
     }
+
+    public int calculateStudents(int[] arr, int maxPages) {
+        int students = 1;
+        int currentPages = 0;
+
+        for (int idx = 0; idx < arr.length; idx++) {
+            if (currentPages + arr[idx] <= maxPages) {
+                currentPages += arr[idx];
+            } else {
+                students++;
+                currentPages = arr[idx];
+            }
+        }
+
+        return students;
+    }
+
+    public int findPages(int[] nums, int m) {
+        // Brute tried
+
+        // int n = nums.length;
+        // int difference = n - m;
+        // int ptr = 0;
+        // int pages;
+        // int maxPages = Integer.MAX_VALUE;
+
+        // while (ptr + difference < n) {
+        // pages = 0;
+        // for (int idx = ptr; idx <= ptr + difference; idx++)
+        // pages += nums[idx];
+        // maxPages = Math.min(maxPages, pages);
+        // System.out.println("Pages from " + ptr + " to " + (ptr + difference) + " = "
+        // + pages);
+        // ptr++;
+        // }
+
+        // if (maxPages == Integer.MAX_VALUE)
+        // return -1;
+
+        // return maxPages;
+
+        // Brute O((sum - max) * n)
+
+        // if (m > nums.length)
+        // return -1;
+
+        // int low = Integer.MIN_VALUE;
+        // long high = 0;
+
+        // for (int num : nums) {
+        // if (num > low)
+        // low = num;
+        // high += (long) num;
+        // }
+
+        // for (int pages = low; pages <= high; pages++) {
+        // if (calculateStudents(nums, pages) <= m)
+        // return pages;
+        // }
+
+        // return -1;
+
+        // Optimal O(n log (sum - max))
+
+        if (m > nums.length)
+            return -1;
+
+        int low = Integer.MIN_VALUE;
+        long high = 0;
+
+        for (int num : nums) {
+            if (num > low)
+                low = num;
+            high += (long) num;
+        }
+
+        int ans = -1;
+        int mid;
+
+        while (low <= high) {
+            mid = low + ((int) high - low) / 2;
+
+            if (calculateStudents(nums, mid) <= m) {
+                ans = mid;
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+
+        return ans;
+    }
 }
 
 public class SearchingAlgorithms {
     public static void main(String[] args) {
         SearchingSolutions solutions = new SearchingSolutions();
         System.out.println(
-                solutions.aggressiveCows(new int[] { 0, 3, 4, 7, 10, 9 }, 4));
+                solutions.findPages(new int[] { 3, 5, 9, 8, 6 }, 4));
     }
 }
