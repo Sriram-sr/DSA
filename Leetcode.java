@@ -39,6 +39,8 @@ class Problems {
 
     // Find the Duplicate Number
     public int Problem_287(int[] nums) {
+        // Better O(3n) time and O(n) space
+
         int max = nums[0];
 
         for (int num : nums) {
@@ -47,15 +49,22 @@ class Problems {
         }
 
         int[] hash = new int[max + 1];
-        for (int idx = 0; idx < nums.length; idx++) {
-            if ()
+        for (int num : nums) {
+            hash[num]++;
         }
+
+        for (int idx = 0; idx < hash.length; idx++) {
+            if (hash[idx] > 1)
+                return idx;
+        }
+
+        return -1;
     }
 }
 
 public class Leetcode {
     public static void main(String[] args) {
         Problems problems = new Problems();
-        System.out.println(problems.Problem_7(123));
+        System.out.println(problems.Problem_287(new int[] {3,3,3,3,3 }));
     }
 }
