@@ -15,6 +15,8 @@ class Pair {
 class StringSolutions {
     // Longest Common Prefix
     public String longestCommonPrefix(String[] str) {
+        // Brute
+
         /**
          * String sample = str[0], temp;
          * String prefix = "";
@@ -108,6 +110,8 @@ class StringSolutions {
 
     // Largest Odd Number in a String
     public String largestOddNumberString(String s) {
+        // Optimal O(n) time & O(n) space
+
         int n = s.length();
         int endIdx = -1;
         for (int idx = n - 1; idx >= 0; idx--) {

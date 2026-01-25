@@ -1037,21 +1037,19 @@ class SearchingSolutions {
             high += (long) num;
         }
 
-        int ans = -1;
         int mid;
 
         while (low <= high) {
             mid = low + ((int) high - low) / 2;
 
             if (calculateStudents(nums, mid) <= m) {
-                ans = mid;
                 high = mid - 1;
             } else {
                 low = mid + 1;
             }
         }
 
-        return ans;
+        return low;
     }
 }
 
