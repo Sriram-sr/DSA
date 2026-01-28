@@ -438,13 +438,31 @@ class SearchingSolutions {
     }
 
     public int findPeakElement(int[] arr) {
-        for (int idx = 1; idx < arr.length; idx++) {
-            if (idx == arr.length - 1) {
-                if (arr[idx - 1] < arr[idx])
-                    return idx;
-            }
+        // Brute - I O(n) time & O(1) space
 
-            if (arr[idx - 1] < arr[idx] && arr[idx + 1] < arr[idx])
+        // if (arr.length == 1)
+        // return 0;
+
+        // if (arr[0] > arr[1]) {
+        // return 0;
+        // }
+
+        // for (int idx = 1; idx < arr.length; idx++) {
+        // if (idx == arr.length - 1) {
+        // if (arr[idx - 1] < arr[idx])
+        // return idx;
+        // }
+
+        // if (arr[idx - 1] < arr[idx] && arr[idx + 1] < arr[idx])
+        // return idx;
+        // }
+
+        // return -1;
+
+        // Brute - II O(n) time & O(1) space
+
+        for (int idx = 0; idx < arr.length; idx++) {
+            if ((idx == 0 || arr[idx - 1] < arr[idx]) && (idx == arr.length - 1 || arr[idx] > arr[idx + 1]))
                 return idx;
         }
 
