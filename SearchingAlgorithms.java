@@ -461,9 +461,38 @@ class SearchingSolutions {
 
         // Brute - II O(n) time & O(1) space
 
-        for (int idx = 0; idx < arr.length; idx++) {
-            if ((idx == 0 || arr[idx - 1] < arr[idx]) && (idx == arr.length - 1 || arr[idx] > arr[idx + 1]))
-                return idx;
+        // for (int idx = 0; idx < arr.length; idx++) {
+        // if ((idx == 0 || arr[idx - 1] < arr[idx]) && (idx == arr.length - 1 ||
+        // arr[idx] > arr[idx + 1]))
+        // return idx;
+        // }
+
+        // return -1;
+
+        // Optimal O(log n) time & O(1) space
+
+        int n = arr.length;
+        if (n == 1)
+            return 0;
+
+        if (arr[0] > arr[1])
+            return 0;
+
+        if (arr[n - 1] > arr[n - 2])
+            return n - 1;
+
+        int low = 1, high = n - 2;
+        int mid;
+
+        while (low <= high) {
+            mid = low + (high - low) / 2;
+
+            if ((arr[mid] > arr[mid - 1]) && (arr[mid] > arr[mid + 1]))
+                return mid;
+            else if (arr[mid] > arr[mid - 1])
+                low = mid + 1;
+            else
+                high = mid - 1;
         }
 
         return -1;
