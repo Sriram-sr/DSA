@@ -449,11 +449,28 @@ class WorkoutSolutions {
 
         return xorN ^ xorGiven;
     }
+
+    public int[] insertionSort(int[] nums) {
+        int n = nums.length;
+        int temp;
+
+        for (int idx = 0; idx < n - 1; idx++) {
+            for (int subIdx = idx + 1; subIdx > 0; subIdx--) {
+                if (nums[subIdx] < nums[subIdx - 1]) {
+                    temp = nums[subIdx];
+                    nums[subIdx] = nums[subIdx - 1];
+                    nums[subIdx - 1] = temp;
+                }
+            }
+        }
+
+        return nums;
+    }
 }
 
 public class Workout {
     public static void main(String[] args) {
         WorkoutSolutions solutions = new WorkoutSolutions();
-        System.out.println(solutions.missingNum(new int[] { 8, 2, 4, 5, 7, 3, 1 }));
+        System.out.println(Arrays.toString(solutions.insertionSort(new int[] { 7, 4, 1, 5, 3 })));
     }
 }
