@@ -22,42 +22,96 @@ class SortingSolutions {
         return nums;
     }
 
+    public void bubbleSortRecursive(int[] arr, int n) {
+        if (n == 1)
+            return;
+
+        boolean isSwapped = false;
+        int temp;
+
+        for (int idx = 0; idx < n - 1; idx++) {
+            if (arr[idx] > arr[idx + 1]) {
+                temp = arr[idx + 1];
+                arr[idx + 1] = arr[idx];
+                arr[idx] = temp;
+                isSwapped = true;
+            }
+        }
+
+        if (!isSwapped)
+            return;
+
+        bubbleSortRecursive(arr, n - 1);
+    }
+
     // Bubble Sort
     public int[] bubbleSort(int[] nums) {
-        int n = nums.length, temp;
-        boolean isSwapped;
+        // int n = nums.length, temp;
+        // boolean isSwapped;
 
-        for (int idx = 0; idx <= n - 1; idx++) {
-            isSwapped = false;
-            for (int subIdx = 0; subIdx < n - 1 - idx; subIdx++) {
-                if (nums[subIdx] > nums[subIdx + 1]) {
-                    temp = nums[subIdx + 1];
-                    nums[subIdx + 1] = nums[subIdx];
-                    nums[subIdx] = temp;
-                    isSwapped = true;
-                }
-            }
-            if (!isSwapped)
-                break;
-        }
+        // for (int idx = 0; idx <= n - 1; idx++) {
+        // isSwapped = false;
+        // for (int subIdx = 0; subIdx < n - 1 - idx; subIdx++) {
+        // if (nums[subIdx] > nums[subIdx + 1]) {
+        // temp = nums[subIdx + 1];
+        // nums[subIdx + 1] = nums[subIdx];
+        // nums[subIdx] = temp;
+        // isSwapped = true;
+        // }
+        // }
+        // if (!isSwapped)
+        // break;
+        // }
+
+        // return nums;
+
+        // Using recursion O(n^2) time and O(n) space
+
+        bubbleSortRecursive(nums, nums.length);
 
         return nums;
     }
 
+    public void insertionSortRecursive(int[] arr, int n) {
+        if (n == 1)
+            return;
+
+        insertionSortRecursive(arr, n - 1);
+        int lastIdx = n - 1;
+        int temp;
+
+        while (lastIdx > 0) {
+            if (arr[lastIdx] < arr[lastIdx - 1]) {
+                temp = arr[lastIdx - 1];
+                arr[lastIdx - 1] = arr[lastIdx];
+                arr[lastIdx] = temp;
+            }
+            lastIdx--;
+        }
+    }
+
     // Insertion Sort
     public int[] insertionSort(int[] nums) {
-        int n = nums.length, temp;
-        for (int idx = 0; idx < n; idx++) {
-            int subIdx = idx;
-            while (subIdx > 0) {
-                if (nums[subIdx - 1] > nums[subIdx]) {
-                    temp = nums[subIdx];
-                    nums[subIdx] = nums[subIdx - 1];
-                    nums[subIdx - 1] = temp;
-                }
-                subIdx--;
-            }
-        }
+        // Linear approach O(n ^ 2) space & O(1) time
+
+        // int n = nums.length, temp;
+        // for (int idx = 0; idx < n; idx++) {
+        // int subIdx = idx;
+        // while (subIdx > 0) {
+        // if (nums[subIdx - 1] > nums[subIdx]) {
+        // temp = nums[subIdx];
+        // nums[subIdx] = nums[subIdx - 1];
+        // nums[subIdx - 1] = temp;
+        // }
+        // subIdx--;
+        // }
+        // }
+
+        // return nums;
+
+        // Recursive approach O(n ^ 2) time and O(n) space
+
+        insertionSortRecursive(nums, nums.length);
 
         return nums;
     }
@@ -150,6 +204,6 @@ class SortingSolutions {
 public class SortingAlgorithms {
     public static void main(String[] args) {
         SortingSolutions solution = new SortingSolutions();
-        System.out.println(Arrays.toString(solution.quickSort(new int[] { 7, 4, 1, 5, 3 })));
+        System.out.println(Arrays.toString(solution.insertionSort(new int[] { 7, 4, 1, 5, 3 })));
     }
 }

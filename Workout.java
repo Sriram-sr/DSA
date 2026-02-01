@@ -454,8 +454,8 @@ class WorkoutSolutions {
         int n = nums.length;
         int temp;
 
-        for (int idx = 0; idx < n - 1; idx++) {
-            for (int subIdx = idx + 1; subIdx > 0; subIdx--) {
+        for (int idx = 0; idx < n; idx++) {
+            for (int subIdx = idx; subIdx > 0; subIdx--) {
                 if (nums[subIdx] < nums[subIdx - 1]) {
                     temp = nums[subIdx];
                     nums[subIdx] = nums[subIdx - 1];
