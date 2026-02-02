@@ -471,6 +471,6 @@ class WorkoutSolutions {
 public class Workout {
     public static void main(String[] args) {
         WorkoutSolutions solutions = new WorkoutSolutions();
-        System.out.println(Arrays.toString(solutions.insertionSort(new int[] { 7, 4, 1, 5, 3 })));
+        System.out.println(Arrays.toString(solutions.insertionSort(new int[] { 5, 1, 4, 9, 3 })));
     }
 }
