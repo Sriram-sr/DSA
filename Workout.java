@@ -466,11 +466,35 @@ class WorkoutSolutions {
 
         return nums;
     }
+
+    // Left Rotate Array by K Places
+    public void rotateArray(int[] nums, int k) {
+        int n = nums.length;
+        k = k % n;
+
+        if (k == n)
+            return;
+
+        int temp[] = new int[k];
+        for (int idx = 0; idx < k; idx++) {
+            temp[idx] = nums[idx];
+        }
+
+        for (int idx = k; idx < n; idx++) {
+            nums[idx - k] = nums[idx];
+        }
+
+        for (int idx = n - k; idx < n; idx++) {
+            nums[idx] = temp[idx - (n - k)];
+        }
+
+        System.out.println(Arrays.toString(nums));
+    }
 }
 
 public class Workout {
     public static void main(String[] args) {
         WorkoutSolutions solutions = new WorkoutSolutions();
-        System.out.println(Arrays.toString(solutions.insertionSort(new int[] { 5, 1, 3, 9, 4 })));
+        solutions.rotateArray(new int[] { 3, 4, 1, 5, 3, -5 }, 8);
     }
 }
