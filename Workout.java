@@ -206,12 +206,14 @@ class WorkoutSolutions {
 
     public int removeDuplicates(int[] nums) {
         int fPtr = 0;
+        int sPtr = 1;
 
-        for (int sPtr = 1; sPtr < nums.length; sPtr++) {
-            if (nums[sPtr] != nums[fPtr]) {
+        while (sPtr < nums.length) {
+            if (nums[fPtr] != nums[sPtr]) {
                 nums[fPtr + 1] = nums[sPtr];
                 fPtr++;
             }
+            sPtr++;
         }
 
         return fPtr + 1;
@@ -495,6 +497,6 @@ class WorkoutSolutions {
 public class Workout {
     public static void main(String[] args) {
         WorkoutSolutions solutions = new WorkoutSolutions();
-        solutions.rotateArray(new int[] { 3, 4, 1, 5, 3, -5 }, 8);
+        System.out.println(solutions.removeDuplicates(new int[] { -2, 2, 4, 4, 4, 4, 5, 5 }));
     }
 }
