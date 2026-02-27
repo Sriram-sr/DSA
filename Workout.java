@@ -49,8 +49,7 @@ class WorkoutSolutions {
 
         int max = nums[0];
         for (int idx = 1; idx < nums.length; idx++) {
-            if (nums[idx] > max)
-                max = nums[idx];
+            if (nums[idx] > max) max = nums[idx];
         }
 
         int[] hashArray = new int[max + 1];
@@ -72,8 +71,7 @@ class WorkoutSolutions {
     public int sumHighestAndLowestFrequency(int[] nums) {
         int max = nums[0];
         for (int idx = 1; idx < nums.length; idx++) {
-            if (nums[idx] > max)
-                max = nums[idx];
+            if (nums[idx] > max) max = nums[idx];
         }
 
         int[] hashArray = new int[max + 1];
@@ -105,8 +103,7 @@ class WorkoutSolutions {
             }
         }
 
-        if (lastIdx == -1)
-            return "";
+        if (lastIdx == -1) return "";
 
         for (int idx = 0; idx < n; idx++) {
             if (s.charAt(idx) - '0' != 0) {
@@ -125,8 +122,7 @@ class WorkoutSolutions {
     }
 
     public boolean isAnagram(String s, String t) {
-        if (s.length() != t.length())
-            return false;
+        if (s.length() != t.length()) return false;
 
         int[] hash = new int[26];
 
@@ -135,8 +131,7 @@ class WorkoutSolutions {
         }
 
         for (int idx = 0; idx < t.length(); idx++) {
-            if (hash[t.charAt(idx) - 'a'] != 1)
-                return false;
+            if (hash[t.charAt(idx) - 'a'] != 1) return false;
         }
 
         return true;
@@ -154,16 +149,14 @@ class WorkoutSolutions {
         }
 
         Arrays.sort(hash, (p1, p2) -> {
-            if (p1.freq != p2.freq)
-                return p2.freq - p1.freq;
+            if (p1.freq != p2.freq) return p2.freq - p1.freq;
             return p1.ele - p2.ele;
         });
 
         List<Character> ans = new ArrayList<>();
 
         for (int idx = 0; idx < hash.length; idx++) {
-            if (hash[idx].freq == 0)
-                break;
+            if (hash[idx].freq == 0) break;
             ans.add(hash[idx].ele);
         }
 
@@ -253,8 +246,7 @@ class WorkoutSolutions {
     }
 
     public int mergeSort(int[] arr, int low, int high) {
-        if (low >= high)
-            return 0;
+        if (low >= high) return 0;
 
         int count = 0;
         int mid = (low + high) / 2;
@@ -284,7 +276,7 @@ class WorkoutSolutions {
             }
         }
 
-        return new int[] { floor, ceil };
+        return new int[]{floor, ceil};
     }
 
     public int lowerBound(int[] nums, int x) {
@@ -347,10 +339,10 @@ class WorkoutSolutions {
         int ub = upperBound(nums, target);
 
         if (lb != nums.length && nums[lb] == target) {
-            return new int[] { lb, ub - 1 };
+            return new int[]{lb, ub - 1};
         }
 
-        return new int[] { -1, -1 };
+        return new int[]{-1, -1};
     }
 
     public boolean searchInARotatedSortedArrayII(int[] nums, int k) {
@@ -474,8 +466,7 @@ class WorkoutSolutions {
         int n = nums.length;
         k = k % n;
 
-        if (k == n)
-            return;
+        if (k == n) return;
 
         int temp[] = new int[k];
         for (int idx = 0; idx < k; idx++) {
@@ -492,11 +483,28 @@ class WorkoutSolutions {
 
         System.out.println(Arrays.toString(nums));
     }
+
+    public int[] twoSum(int[] arr, int target) {
+        int[] result = new int[2];
+
+        for (int fIdx = 0; fIdx < arr.length - 1; fIdx++) {
+            for (int sIdx = fIdx + 1; sIdx < arr.length; sIdx++) {
+                if (arr[fIdx] + arr[sIdx] == target) {
+                    result[0] = fIdx;
+                    result[1] = sIdx;
+                    break;
+                }
+            }
+        }
+
+        System.out.println(Arrays.toString(result));
+        return result;
+    }
 }
 
 public class Workout {
     public static void main(String[] args) {
         WorkoutSolutions solutions = new WorkoutSolutions();
-        System.out.println(solutions.removeDuplicates(new int[] { -2, 2, 4, 4, 4, 4, 5, 5 }));
+        solutions.twoSum(new int[]{9, 7, 3, 2, 4, 6, 8}, 9);
     }
 }

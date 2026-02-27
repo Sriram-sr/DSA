@@ -1,0 +1,40 @@
+# Compiled class files
+*.class
+
+# Generated files
+*.log
+*.lock
+*.snapshot
+*.swp
+/out/
+/target/
+
+# Package Files
+*.jar
+*.war
+*.ear
+
+# Maven
+/target/
+
+# Gradle
+.gradle
+/build/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Eclipse
+.project
+.classpath
+.settings/
+/bin/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
