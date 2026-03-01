@@ -1,3 +1,4 @@
+import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -500,11 +501,35 @@ class WorkoutSolutions {
         System.out.println(Arrays.toString(result));
         return result;
     }
+
+    public List<Integer> leaders(int[] nums) {
+        ArrayList<Integer> result = new ArrayList<>();
+        int n = nums.length;
+
+        if (n == 1) {
+            result.add(nums[0]);
+            return result;
+        }
+
+        int last = nums[n - 1];
+        result.add(last);
+
+        for (int idx = n - 2; idx >= 0; idx--) {
+            if (nums[idx] > last) {
+                result.add(nums[idx]);
+                last = nums[idx];
+            }
+        }
+
+        Collections.reverse(result);
+
+        return result;
+    }
 }
 
 public class Workout {
     public static void main(String[] args) {
         WorkoutSolutions solutions = new WorkoutSolutions();
-        solutions.twoSum(new int[]{9, 7, 3, 2, 4, 6, 8}, 9);
+        System.out.println(solutions.leaders(new int[]{1, 2, 5, 3, 1, 2}));
     }
 }
