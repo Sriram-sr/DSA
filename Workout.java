@@ -525,11 +525,29 @@ class WorkoutSolutions {
 
         return result;
     }
+
+    public int[] rearrangeArray(int[] nums) {
+        int[] result = new int[nums.length];
+        int posPtr = 0;
+        int negPtr = 1;
+
+        for (int num : nums) {
+            if (num >= 0) {
+                result[posPtr] = num;
+                posPtr += 2;
+            } else {
+                result[negPtr] = num;
+                negPtr += 2;
+            }
+        }
+
+        return result;
+    }
 }
 
 public class Workout {
     public static void main(String[] args) {
         WorkoutSolutions solutions = new WorkoutSolutions();
-        System.out.println(solutions.leaders(new int[]{1, 2, 5, 3, 1, 2}));
+        solutions.rearrangeArray(new int[]{2, 4, 5, -1, -3, -4});
     }
 }
